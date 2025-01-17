@@ -1,18 +1,25 @@
-import tseslint from 'typescript-eslint';
-import js from '@eslint/js';
-import globals from 'globals';
-import react from 'eslint-plugin-react';
-import reactHooks from 'eslint-plugin-react-hooks';
-import reactRefresh from 'eslint-plugin-react-refresh';
-import importPlugin from 'eslint-plugin-import';
-import jsxA11y from 'eslint-plugin-jsx-a11y';
-import prettier from 'eslint-plugin-prettier/recommended';
+import tseslint from 'typescript-eslint'
+import js from '@eslint/js'
+import globals from 'globals'
+import react from 'eslint-plugin-react'
+import reactHooks from 'eslint-plugin-react-hooks'
+import reactRefresh from 'eslint-plugin-react-refresh'
+import importPlugin from 'eslint-plugin-import'
+import jsxA11y from 'eslint-plugin-jsx-a11y'
+import prettier from 'eslint-plugin-prettier/recommended'
 
 export default tseslint.config(
   {
     ignores: [
-      'dist', 'build', '*.min.js', 'node_modules', 'coverage', 
-      '.yarn', 'public', '*.cjs', 'README.md'
+      'dist',
+      'build',
+      '*.min.js',
+      'node_modules',
+      'coverage',
+      '.yarn',
+      'public',
+      '*.cjs',
+      'README.md'
     ]
   },
   {
@@ -46,10 +53,10 @@ export default tseslint.config(
     rules: {
       'no-console': ['error', { allow: ['warn', 'error'] }],
       'no-debugger': 'error',
-      'no-unused-vars': ['error', { vars: 'all', args: 'after-used', ignoreRestSiblings: true }],
+      '@typescript-eslint/no-unused-vars': ['warn', { vars: 'all', args: 'after-used', ignoreRestSiblings: true }],
       'consistent-return': 'error',
-      'eqeqeq': ['error', 'always'],
-      'curly': ['error', 'all'],
+      eqeqeq: ['error', 'always'],
+      curly: ['error', 'all'],
       'import/no-unresolved': 'error',
       'import/order': [
         'off',
@@ -62,6 +69,7 @@ export default tseslint.config(
           alphabetize: { order: 'asc', caseInsensitive: true }
         }
       ],
+      '@typescript-eslint/no-explicit-any': 'warn',
       'react/jsx-no-target-blank': ['error', { allowReferrer: false }],
       'react/button-has-type': 'error',
       'react-hooks/rules-of-hooks': 'error',
@@ -76,4 +84,4 @@ export default tseslint.config(
       'prettier/prettier': 'error'
     }
   }
-);
+)
