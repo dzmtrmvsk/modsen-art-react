@@ -10,7 +10,7 @@ import prettier from 'eslint-plugin-prettier/recommended';
 
 export default tseslint.config(
   {
-    ignores: ['dist', 'build', '*.min.js', 'node_modules', 'coverage','.yarn','public','*.cjs',''] 
+    ignores: ['dist', 'build', '*.min.js', 'node_modules', 'coverage','.yarn','public','*.cjs','README.md'] 
   },
   {
     files: ['**/*.{ts,tsx}'],
