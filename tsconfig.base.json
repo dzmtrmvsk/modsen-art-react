@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+      "strict": true,
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      "noFallthroughCasesInSwitch": true,
+      "noUncheckedSideEffectImports": true,
+      "skipLibCheck": true,
+      "isolatedModules": true,
+      "moduleResolution": "bundler",
+      "allowImportingTsExtensions": true,
+      "moduleDetection": "force",
+      "noEmit": true
+    }
+  }
+  
