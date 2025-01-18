@@ -7,7 +7,7 @@ import { ROUTE_CONFIG } from '@/routes'
 import styles from './styles.module.scss'
 
 interface GalleryLogoProps {
-  type?: 'minimal' | 'dark' | 'light'
+  type?: 'dark' | 'light'
   className?: string
 }
 

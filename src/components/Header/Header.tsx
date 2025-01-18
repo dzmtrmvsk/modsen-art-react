@@ -8,7 +8,7 @@ import BurgerMenuButton from '@/components/BurgerMenuButton'
 
 import styles from './styles.module.scss'
 
-export function Header() {
+const Header = () => {
   const headerRef = useRef<HTMLDivElement>(null)
   const { closeMenu, isMenuOpened } = useBurgerMenuContext()
 
@@ -38,3 +38,5 @@ export function Header() {
     </header>
   )
 }
+
+export default Header
