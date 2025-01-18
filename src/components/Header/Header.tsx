@@ -1,7 +1,6 @@
-import { useLocation } from 'react-router-dom'
 import { useEffect, useRef } from 'react'
 import { useBurgerMenuContext } from '@/contexts/BurgerMenuContext'
-import { useOutsideClick } from '@/hooks/usOutsideClick'
+import { useOutsideClick } from '@/hooks/useOutsideClick'
 import Container from '@/components/Container'
 import NavBar from '@/components/NavBar'
 import GalleryLogo from '@/components/GalleryLogo'
@@ -10,7 +9,6 @@ import BurgerMenuButton from '@/components/BurgerMenuButton'
 import styles from './styles.module.scss'
 
 export function Header() {
-  const location = useLocation()
   const headerRef = useRef<HTMLDivElement>(null)
   const { closeMenu, isMenuOpened } = useBurgerMenuContext()
 
