@@ -1,9 +1,11 @@
 import PageLayout from '@/components/PageLayout'
 
-export const HomePage = () => {
+const HomePage = () => {
   return (
     <PageLayout>
       <h1>HELLO WORLD</h1>
     </PageLayout>
   )
 }
+
+export default HomePage

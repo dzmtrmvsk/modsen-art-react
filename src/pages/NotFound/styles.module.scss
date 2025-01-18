@@ -1,0 +1,67 @@
+@import url("https://fonts.googleapis.com/css2?family=Arvo&display=swap");
+@import '/src/styles/colors.scss';
+
+.page404 {
+    --text-color: #000;
+    --heading-font-size: 80px;
+    --subtitle-font-size: 40px;
+    --link-padding: 10px 20px;
+    --link-background-color: #39ac31;
+    font-family: "Lexend Deca", sans-serif;
+    padding: 40px 0;
+    background: var(--background-color);
+
+    &__container {
+        display: flex;
+        justify-content: center;
+    }
+
+    &__row {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    &__col {
+        display: flex;
+        justify-content: center;
+    }
+
+    &__colInner {
+        text-align: center;
+    }
+
+    &__imageContainer {
+        background-image: url('https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif');
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 260px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+    &__subtitle {
+        padding-top: 30px;
+        font-size: var(--subtitle-font-size);
+        color: $color-orange;
+    }
+
+    &__description {
+        font-size: 20px;
+        color: $color-primary;
+    }
+
+    &__link {
+        display: inline-block;
+        padding: var(--link-padding);
+        background-color: $color-orange;
+        color: $color-primary;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-top: 20px;
+        text-transform: uppercase;
+        transition: background-color 0.3s ease;
+    }
+}
