@@ -1,11 +1,9 @@
-import Footer from '@/components/Footer'
-import Header from '@/components/Header/Header'
+import PageLayout from '@/components/PageLayout'
 
 export const HomePage = () => {
   return (
-    <>
-      <Header />
-      <Footer />
-    </>
+    <PageLayout>
+      <h1>HELLO WORLD</h1>
+    </PageLayout>
   )
 }
