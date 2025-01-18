@@ -8,7 +8,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           {Object.values(ROUTE_CONFIG).map((route) => (
-            <Route key={route.path} path={route.generatePath()} Component={route.element} />
+            <Route key={route.path} path={route.resolvePath()} Component={route.element} />
           ))}
         </Routes>
       </BrowserRouter>

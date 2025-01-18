@@ -1,4 +1,5 @@
 import '@/styles/reset.scss'
+import '@/styles/globals.scss'
 
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'

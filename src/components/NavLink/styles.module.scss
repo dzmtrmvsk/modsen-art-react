@@ -1,0 +1,26 @@
+@import '/src/styles/colors.scss';
+
+
+.navLink {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    &__icon {
+        height: 24px;
+        aspect-ratio: 1;
+        flex-shrink: 0;
+    }
+
+    &__label {
+        color: white;
+        font-family: 'Inter', sans-serif;
+        transition: color 0.2s ease-in-out;
+
+        @media (hover: hover) {
+            &:hover {
+                color: $color-accent;
+            }
+        }
+    }
+}

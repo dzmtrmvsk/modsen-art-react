@@ -1,0 +1,14 @@
+.galleryLogo {
+    &__image {
+        height: 63px;
+        width: auto;
+        display: block;
+    }
+
+    @media (hover: hover) {
+        &:hover {
+            opacity: 0.8;
+            transition: opacity 0.3s ease-in-out;
+        }
+    }
+}
