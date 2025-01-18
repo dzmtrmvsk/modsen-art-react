@@ -1,0 +1,116 @@
+.error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    padding: 16px;
+    box-sizing: border-box;
+
+    &__content {
+        text-align: center;
+        max-width: 480px;
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.2);
+        padding: 24px;
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    &__image {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 24px;
+    }
+
+    &__title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #333333;
+        margin-bottom: 12px;
+    }
+
+    &__message {
+        font-size: 1rem;
+        color: #555555;
+        margin-bottom: 16px;
+        line-height: 1.5;
+    }
+
+    &__details {
+        background: #f8f9fa;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 12px;
+        font-size: 0.9rem;
+        color: #444444;
+        margin-bottom: 16px;
+        max-height: 150px;
+        overflow: auto;
+
+        &__summary {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        &__text {
+            white-space: pre-wrap;
+        }
+    }
+
+    &__actions {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+    }
+
+    &__button {
+        background: #ff6347;
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 24px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+            background: #e5533d;
+        }
+
+        &:focus {
+            outline: 3px solid #e5533d;
+        }
+    }
+
+    &__link {
+        color: #ff6347;
+        font-weight: 600;
+        text-decoration: none;
+        border: 1px solid #ff6347;
+        border-radius: 8px;
+        padding: 12px 24px;
+        transition: all 0.3s ease;
+
+        &:hover {
+            background: #ff6347;
+            color: #ffffff;
+        }
+
+        &:focus {
+            outline: 3px solid #ff6347;
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
