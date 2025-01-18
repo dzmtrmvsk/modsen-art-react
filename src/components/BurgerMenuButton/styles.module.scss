@@ -1,0 +1,38 @@
+@import '/src/styles/colors.scss';
+
+.burgerMenu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    width: 30px;
+    aspect-ratio: 1 / 1;
+    cursor: pointer;
+    border: none;
+    background: none;
+    outline: none;
+
+    .bar {
+        display: block;
+        width: 100%;
+        height: 3px;
+        background-color: $color-orange;
+        transition: transform 0.4s ease-in-out, opacity 0.4s ease, background-color 0.4s ease-out;
+    }
+
+    &[data-open='true'] {
+        .bar:first-child {
+            transform: translateY(0.8rem) rotate(-45deg);
+        }
+
+        .bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .bar:last-child {
+            transform: translateY(-0.8rem) rotate(45deg);
+        }
+    }
+}
