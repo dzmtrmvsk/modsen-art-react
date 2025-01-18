@@ -1,14 +1,11 @@
-import { ReactNode } from 'react'
-
 import styles from './styles.module.scss'
 
-interface ContainerProps {
-  extraClass?: string
-  content: ReactNode
+interface ContainerProps extends React.PropsWithChildren {
+  className?: string
 }
 
-const Container = ({ extraClass, content }: ContainerProps) => {
-  return <div className={`${styles.container} ${extraClass}`}>{content}</div>
+const Container = ({ className, children }: ContainerProps) => {
+  return <div className={`${styles.container} ${className}`}>{children}</div>
 }
 
 export default Container

@@ -1,3 +1,5 @@
+import { Header } from '@/components/Header/Header'
+
 export const HomePage = () => {
-  return <div>Home</div>
+  return <Header />
 }

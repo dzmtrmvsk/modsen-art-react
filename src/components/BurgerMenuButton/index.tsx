@@ -1,7 +1,7 @@
 import styles from './styles.module.scss'
 import { useBurgerMenuContext } from '@/contexts/BurgerMenuContext'
 
-export function BurgerMenuButton() {
+const BurgerMenuButton = () => {
   const { toggleMenu, isMenuOpened } = useBurgerMenuContext()
 
   return (
@@ -17,3 +17,5 @@ export function BurgerMenuButton() {
     </button>
   )
 }
+
+export default BurgerMenuButton

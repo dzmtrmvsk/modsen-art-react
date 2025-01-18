@@ -8,9 +8,10 @@ import styles from './styles.module.scss'
 
 interface GalleryLogoProps {
   type?: 'minimal' | 'dark' | 'light'
+  className?: string
 }
 
-export function GalleryLogo({ type = 'light' }: GalleryLogoProps) {
+const GalleryLogo = ({ type = 'light', className }: GalleryLogoProps) => {
   const logoVariants = {
     dark: artGalleryLogoDarkSrc,
     light: artGalleryLogoLightSrc
@@ -19,8 +20,10 @@ export function GalleryLogo({ type = 'light' }: GalleryLogoProps) {
   const selectedLogo = logoVariants[type]
 
   return (
-    <Link className={styles.galleryLogo} to={ROUTE_CONFIG.home.generatePath()}>
+    <Link className={`${styles.galleryLogo} ${className}`} to={ROUTE_CONFIG.home.generatePath()}>
       <img className={styles.galleryLogo__image} src={selectedLogo} alt="Art Gallery Logo" />
     </Link>
   )
 }
+
+export default GalleryLogo
