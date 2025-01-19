@@ -1,0 +1,27 @@
+.searchLine {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 760px;
+    gap: 24px;
+
+    border-radius: 16px;
+    padding: 16px;
+    background-color: #3939390D;
+
+    &__input {
+        font-family: 'Inter', sans-serif;
+        font-size: 18px;
+        width: 100%;
+    }
+
+    @media screen and (max-width: 290px) {
+        padding: 6px;
+        gap: 2px;
+        &__input {
+            font-size: 16px;
+        }
+
+    }
+}

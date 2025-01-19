@@ -10,11 +10,6 @@ const ErrorFallback = ({ error, resetErrorBoundary }: ErrorFallbackProps) => {
   return (
     <div className={styles.error}>
       <div className={styles.error__content}>
-        <img
-          src="/assets/images/error-illustration.svg"
-          alt="Something went wrong"
-          className={styles.error__image}
-        />
         <h1 className={styles.error__title}>Oops, something went wrong!</h1>
         <p className={styles.error__message}>
           We are sorry for the inconvenience. Our team has been notified, and we are working on it.
