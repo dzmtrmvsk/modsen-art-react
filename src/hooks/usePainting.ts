@@ -1,29 +1,30 @@
-import { useEffect, useState, useCallback } from 'react'
-import { fetchPainting, fetchPaintingsByIds, searchPaintings } from '@/utils/paintingsFetch'
+import { useEffect, useState, useCallback, useMemo } from 'react'
+import { fetchPaintingsByIds, searchPaintings } from '@/utils/paintingsFetch'
 import { IPainting } from 'src/types/painting'
 
 /**
  * usePaintings
- *  A custom React hook to for working with paintings.
- * Supports three modes: loading a single painting, a list of paintings, or searching for paintings.
+ * A custom React hook for working with paintings.
+ * Always returns an array of paintings.
  *
  * @param mode The mode of the hook: 'single', 'list', 'search'.
  * @param params The parameters of the request, depending on the selected mode.
- * @returns An object with data, loading state, error, and a function to refetch the request.
+ * @returns An object with data (array of paintings), loading state, error, and a function to refetch the request.
  */
-
-export function usePaintings(
+const usePaintings = (
   mode: 'single' | 'list' | 'search',
-  params: { id?: number; ids?: number[]; query?: string; limit?: number; page?: number } = {}
+  params: { id?: number[]; ids?: number[]; query?: string; limit?: number; page?: number } = {}
 ): {
-  data: IPainting | IPainting[] | null
+  data: IPainting[]
   isLoading: boolean
   error: Error | null
   refetch: () => void
-} {
-  const [data, setData] = useState<IPainting | IPainting[] | null>(null)
+} => {
+  const [data, setData] = useState<IPainting[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<Error | null>(null)
+
+  const stableParams = useMemo(() => params, [JSON.stringify(params)])
 
   const fetchData = useCallback(() => {
     setIsLoading(true)
@@ -33,41 +34,59 @@ export function usePaintings(
 
     switch (mode) {
       case 'single':
-        if (!params.id) {
-          throw new Error('ID is required for single painting fetch.')
+        if (!stableParams.id) {
+          setIsLoading(false)
+          setError(new Error('ID is required for single painting fetch.'))
+          return
         }
-        fetchPromise = fetchPainting(params.id)
+        fetchPromise = fetchPaintingsByIds(stableParams.id)
         break
 
       case 'list':
-        if (!params.ids || params.ids.length === 0) {
-          throw new Error('IDs are required for painting list fetch.')
+        if (!stableParams.ids || stableParams.ids.length === 0) {
+          setIsLoading(false)
+          setError(new Error('IDs are required for painting list fetch.'))
+          return
         }
-        fetchPromise = fetchPaintingsByIds(params.ids)
+        fetchPromise = fetchPaintingsByIds(stableParams.ids)
         break
 
       case 'search':
-        fetchPromise = searchPaintings(params.query || '', params.limit || 10, params.page || 1)
+        fetchPromise = searchPaintings(
+          stableParams.query || '',
+          stableParams.limit || 10,
+          stableParams.page || 1
+        )
         break
 
       default:
-        throw new Error(`Unsupported mode: ${mode}`)
+        setIsLoading(false)
+        setError(new Error(`Unsupported mode: ${mode}`))
+        return
     }
 
     fetchPromise
       .then((result) => {
-        setData(result)
+        if (mode === 'search') {
+          setData(result.paintings.artworks || [])
+        } else {
+          setData(result.artworks || [])
+        }
         setIsLoading(false)
       })
       .catch((err) => {
         setError(err)
         setIsLoading(false)
       })
-  }, [mode, params])
+  }, [mode, stableParams])
 
   useEffect(() => {
-    fetchData()
+    if (mode === 'search' && params.query !== '') {
+      fetchData()
+    }
   }, [fetchData])
 
   return { data, isLoading, error, refetch: fetchData }
 }
+
+export { usePaintings }

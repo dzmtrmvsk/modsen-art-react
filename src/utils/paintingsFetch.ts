@@ -1,29 +1,16 @@
 import { QUERY_ART_FIELDS, QUERY_ART_TYPE_ID } from '@/constants/paintingQuery'
 import { parsePainting, mapApiPaginationToDetails } from '@/utils/parsers'
-import { IArtworkResponse, IArtworkListResponse, ISearchResults } from 'src/types/apiResponse'
-import { IPainting, IPaintingList } from 'src/types/painting'
+import { IArtworkListResponse, ISearchResults } from 'src/types/apiResponse'
+import { IPaintingList } from 'src/types/painting'
 import { IPaginationDetails } from 'src/types/pagination'
-
-const fetchPainting = async (paintingId: number): Promise<IPainting> => {
-  const url = new URL(`${process.env.ART_API_ENDPOINT}/artworks/${paintingId}`)
-  url.searchParams.append('fields', QUERY_ART_FIELDS.join(','))
-
-  const response = await fetch(url.toString())
-
-  if (!response.ok) {
-    throw new Error((await response.text()) || 'Error fetching painting.')
-  }
-
-  const data: IArtworkResponse = await response.json()
-  return parsePainting(data.paintingData, data.configuration)
-}
+import { ART_API_ENDPOINT } from '@/constants/apiParams'
 
 const fetchPaintingsByIds = async (paintingIds: number[]): Promise<IPaintingList> => {
   if (!paintingIds.length) {
     return { artworks: [] }
   }
 
-  const url = new URL(`${process.env.ART_API_ENDPOINT}/artworks`)
+  const url = new URL(`${ART_API_ENDPOINT}/artworks`)
   url.searchParams.append('fields', QUERY_ART_FIELDS.join(','))
   url.searchParams.append('ids', paintingIds.join(','))
 
@@ -35,9 +22,7 @@ const fetchPaintingsByIds = async (paintingIds: number[]): Promise<IPaintingList
 
   const data: IArtworkListResponse = await response.json()
   return {
-    artworks: data.paintingsData.map((paintingJson) =>
-      parsePainting(paintingJson, data.configuration)
-    )
+    artworks: data.data.map((paintingJson) => parsePainting(paintingJson, data.config))
   }
 }
 
@@ -46,7 +31,7 @@ const searchPaintings = async (
   limit: number = 10,
   page: number = 1
 ): Promise<{ paintings: IPaintingList; pagination: IPaginationDetails }> => {
-  const url = new URL(`${process.env.ART_API_ENDPOINT}/artworks/search`)
+  const url = new URL(`${ART_API_ENDPOINT}/artworks/search`)
   url.searchParams.append('query[term][artwork_type_id]', QUERY_ART_TYPE_ID.toString())
   url.searchParams.append('fields', QUERY_ART_FIELDS.join(','))
   url.searchParams.append('limit', limit.toString())
@@ -62,14 +47,13 @@ const searchPaintings = async (
   }
 
   const data: ISearchResults = await response.json()
+
   return {
     paintings: {
-      artworks: data.artworksData.map((paintingJson) =>
-        parsePainting(paintingJson, data.configuration)
-      )
+      artworks: data.data.map((paintingJson) => parsePainting(paintingJson, data.config))
     },
-    pagination: mapApiPaginationToDetails(data.paginationInfo)
+    pagination: mapApiPaginationToDetails(data.pagination)
   }
 }
 
-export { fetchPainting, fetchPaintingsByIds, searchPaintings }
+export { fetchPaintingsByIds, searchPaintings }

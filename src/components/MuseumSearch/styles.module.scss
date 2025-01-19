@@ -1,0 +1,54 @@
+.museumSearch {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    &__sorting {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    &__form {
+        display: flex;
+        justify-content: center;
+
+        div {
+            width: 760px;
+        }
+    }
+
+
+    &__sortButton {
+        font-size: 18px;
+        font-family: 'Inter', sans-serif;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        background-color: #f3f3f3;
+        transition: all 0.2s ease;
+
+        &:hover {
+            background-color: #f0f0f0;
+            color: #e0a449;
+        }
+
+        &--active {
+            font-weight: bold;
+            color: #e0a449;
+        }
+    }
+
+    &__results {
+        background-color: #fafafa;
+        border-radius: 8px;
+        padding: 1rem;
+        padding-top: 24px;
+    }
+
+    &__noResults {
+        text-align: center;
+        color: #a3a3a3;
+    }
+}

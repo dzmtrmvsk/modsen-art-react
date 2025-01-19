@@ -38,17 +38,25 @@ const CompactPainting = ({
   }, [])
 
   return (
-    <div className={styles.paintingCard} onClick={handleCardInteraction}>
-      <div className={styles.paintingCard__imageWrapper}>
-        <img className={styles.paintingCard__artworkImage} src={imageSource} alt={title} />
-      </div>
-      <div className={styles.paintingCard__details}>
-        <h3 className={styles.paintingCard__title}>{title}</h3>
-        <p className={styles.artistName}>{artistName}</p>
-        <p className={styles.galleryStatus}>{displayedInGallery ? 'On Display' : 'In Storage'}</p>
-      </div>
-      <div className={styles.paintingCard__actionsWrapper} onClick={stopPropagationHandler}>
-        <BookmarkToggle isSelected={isFavorite} onToggle={toggleFavoriteStatus} />
+    <div className={styles.paintingCard}>
+      <div className={styles.paintingCard__wrapper} onClick={handleCardInteraction}>
+        <div className={styles.paintingCard__infoWrapper}>
+          <div className={styles.paintingCard__imageWrapper}>
+            <img className={styles.paintingCard__artworkImage} src={imageSource} alt={title} />
+          </div>
+          <div className={styles.paintingCard__details}>
+            <div className={styles.paintingCard__artInfo}>
+              <h3 className={styles.paintingCard__title}>{title}</h3>
+              <p className={styles.paintingCard__artistName}>{artistName}</p>
+            </div>
+            <p className={styles.paintingCard__galleryStatus}>
+              {displayedInGallery ? 'Public' : 'Private'}
+            </p>
+          </div>
+        </div>
+        <div className={styles.paintingCard__actionsWrapper} onClick={stopPropagationHandler}>
+          <BookmarkToggle isSelected={isFavorite} onToggle={toggleFavoriteStatus} />
+        </div>
       </div>
     </div>
   )

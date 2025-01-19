@@ -6,13 +6,13 @@ import BookmarkToggle from '../BookMarkToggle'
 
 import styles from './styles.module.scss'
 
-export function DetailedPainting({
+const DetailedPainting = ({
   painting,
   isMarkedAsFavorite,
   onPaintingClick,
   addToFavorites,
   removeFromFavorites
-}: CompactPaintingProps) {
+}: CompactPaintingProps) => {
   const onCardInteraction = useCallback(() => {
     onPaintingClick(painting.id)
   }, [painting, onPaintingClick])
@@ -51,3 +51,5 @@ export function DetailedPainting({
     </div>
   )
 }
+
+export default DetailedPainting

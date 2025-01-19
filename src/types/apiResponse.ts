@@ -2,21 +2,21 @@ import { IAPIArtwork } from './painting'
 import { IAPIPagination } from './pagination'
 
 export interface IAPIConfig {
-  iiifBaseUrl: string
+  iiif_url: string
 }
 
 export interface IArtworkResponse {
-  paintingData: IAPIArtwork
-  configuration: IAPIConfig
+  data: IAPIArtwork
+  config: IAPIConfig
 }
 
 export interface IArtworkListResponse {
-  paintingsData: IAPIArtwork[]
-  configuration: IAPIConfig
+  data: IAPIArtwork[]
+  config: IAPIConfig
 }
 
 export interface ISearchResults {
-  paginationInfo: IAPIPagination
-  artworksData: IAPIArtwork[]
-  configuration: IAPIConfig
+  pagination: IAPIPagination
+  data: IAPIArtwork[]
+  config: IAPIConfig
 }

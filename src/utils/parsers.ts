@@ -1,6 +1,7 @@
 import { IPaginationDetails, IAPIPagination } from 'src/types/pagination'
 import { IAPIArtwork, IPainting } from 'src/types/painting'
 import { IAPIConfig } from 'src/types/apiResponse'
+import { ART_API_IMAGE_PATH, IMAGE_PLACEHOLDER } from '@/constants/apiParams'
 
 const parsePagination = (paginationJson: IPaginationDetails): IPaginationDetails => {
   return {
@@ -24,8 +25,8 @@ const parsePainting = (paintingJson: IAPIArtwork, configJson: IAPIConfig): IPain
     associatedGallery: paintingJson.gallery_title,
     acquisitionInfo: paintingJson.credit_line,
     imageSource: paintingJson.image_id
-      ? `${configJson.iiifBaseUrl}/${paintingJson.image_id}/${process.env.ART_API_IMAGE_PATH}`
-      : process.env.IMAGE_PLACEHOLDER
+      ? `${configJson.iiif_url}/${paintingJson.image_id}/${ART_API_IMAGE_PATH}`
+      : IMAGE_PLACEHOLDER
   }
 }
 
