@@ -13,7 +13,7 @@ type PaintingsContainerProps = Pick<PaintingProps, 'type'> & {
 
 const PaintingsContainer = ({ paintings, ...props }: PaintingsContainerProps) => {
   const navigate = useNavigate()
-  const { favoriteIds, add, remove } = useSavedIds()
+  const { savedIds, toggle } = useSavedIds()
 
   const handleCardClick = useCallback(
     (id: number) => {
@@ -25,14 +25,13 @@ const PaintingsContainer = ({ paintings, ...props }: PaintingsContainerProps) =>
   return (
     <div className={styles.list}>
       <div className={styles.list__wrapper}>
-        {paintings.map((p) => (
+        {paintings?.map((p) => (
           <PaintingItem
             key={p.id}
             painting={p}
-            isMarkedAsFavorite={(id) => favoriteIds.includes(id)}
+            isMarkedAsFavorite={(id) => savedIds.includes(id)}
             onPaintingClick={handleCardClick}
-            addToFavorites={add}
-            removeFromFavorites={remove}
+            toggleFavorites={toggle}
             {...props}
           />
         ))}

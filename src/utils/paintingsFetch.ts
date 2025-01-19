@@ -20,9 +20,10 @@ const fetchPaintingsByIds = async (paintingIds: number[]): Promise<IPaintingList
   }
 
   const data: IArtworkListResponse = await response.json()
-  return {
+  const result: IPaintingList = {
     artworks: data.data.map((paintingJson) => parsePainting(paintingJson, data.config))
   }
+  return result
 }
 
 const searchPaintings = async (

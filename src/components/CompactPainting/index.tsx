@@ -7,8 +7,7 @@ interface CompactPaintingProps {
   painting: IPainting
   isMarkedAsFavorite: (id: number) => boolean
   onPaintingClick: (id: number) => void
-  addToFavorites: (id: number) => void
-  removeFromFavorites: (id: number) => void
+  toggleFavorites: (id: number) => void
 }
 
 const placeholderImage = '/images/placeholder.svg'
@@ -17,8 +16,7 @@ const CompactPainting = ({
   painting,
   isMarkedAsFavorite,
   onPaintingClick,
-  addToFavorites,
-  removeFromFavorites
+  toggleFavorites
 }: CompactPaintingProps) => {
   const { id, imageSource, title, artistName, displayedInGallery } = painting
 
@@ -31,9 +29,8 @@ const CompactPainting = ({
   }, [id, onPaintingClick])
 
   const toggleFavoriteStatus = useCallback(() => {
-    const action = isFavorite ? removeFromFavorites : addToFavorites
-    action(id)
-  }, [id, isFavorite, addToFavorites, removeFromFavorites])
+    toggleFavorites(id)
+  }, [id, isFavorite, toggleFavorites])
 
   const stopPropagationHandler = useCallback((e: React.MouseEvent) => {
     e.stopPropagation()

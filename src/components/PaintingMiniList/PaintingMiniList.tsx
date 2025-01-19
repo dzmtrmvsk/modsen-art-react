@@ -6,7 +6,7 @@ import { PaginationState } from '@/hooks/usePagination'
 
 interface PaintingMiniListProps {
   artworks: IPainting[]
-  pagination: PaginationState
+  pagination?: PaginationState
 }
 
 const PaintingMiniList = ({ artworks, pagination }: PaintingMiniListProps) => {
@@ -14,7 +14,7 @@ const PaintingMiniList = ({ artworks, pagination }: PaintingMiniListProps) => {
     <div className={styles.paintingMiniList}>
       <div className={styles.paintingMiniList__wrapper}>
         <PaintingsContainer paintings={artworks} type="compact" />
-        <Pagination pagination={pagination} />
+        {pagination?.visiblePages && <Pagination pagination={pagination} />}
       </div>
     </div>
   )

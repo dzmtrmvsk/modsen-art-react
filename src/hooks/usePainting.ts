@@ -12,7 +12,7 @@ import { IPaintingListPagination } from 'src/types/painting'
  * @returns An object with data (array of paintings), loading state, error, and a function to refetch the request.
  */
 const usePaintings = (
-  mode: 'single' | 'list' | 'search',
+  mode: 'list' | 'search',
   params: { id?: number[]; ids?: number[]; query?: string; limit?: number; page?: number } = {}
 ): {
   data: IPaintingListPagination
@@ -33,15 +33,6 @@ const usePaintings = (
     let fetchPromise: Promise<any>
 
     switch (mode) {
-      case 'single':
-        if (!stableParams.id) {
-          setIsLoading(false)
-          setError(new Error('ID is required for single painting fetch.'))
-          return
-        }
-        fetchPromise = fetchPaintingsByIds(stableParams.id)
-        break
-
       case 'list':
         if (!stableParams.ids || stableParams.ids.length === 0) {
           setIsLoading(false)
@@ -67,10 +58,8 @@ const usePaintings = (
 
     fetchPromise
       .then((result) => {
-        if (mode === 'search') {
-          setData(result)
-          setIsLoading(false)
-        }
+        setData(result)
+        setIsLoading(false)
       })
       .catch((err) => {
         setError(err)
@@ -79,7 +68,7 @@ const usePaintings = (
   }, [mode, stableParams])
 
   useEffect(() => {
-    if (mode === 'search' && params.query !== '') {
+    if ((mode === 'search' && params.query !== '') || mode === 'list') {
       fetchData()
     }
   }, [fetchData])
