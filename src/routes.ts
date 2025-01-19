@@ -1,9 +1,9 @@
 import type { RoutesType } from 'src/types/customRoute'
 import markIcon from '@/assets/icons/mark.svg'
 import homeIcon from '@/assets/icons/home.svg'
-import { FavoritesPage } from '@/pages/Favorites'
+import FavoritesPage from '@/pages/Favorites'
 import HomePage from '@/pages/Home'
-import { InfoPage } from '@/pages/Info'
+import InfoPage from '@/pages/Info'
 import NotFoundPage from '@/pages/NotFound'
 
 export const ROUTE_CONFIG: RoutesType = {

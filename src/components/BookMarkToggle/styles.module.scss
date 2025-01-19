@@ -1,0 +1,31 @@
+.bookmarkButton {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    border: none;
+    background-color: #FEF3E8;
+    cursor: pointer;
+    transition: background-color 0.19s ease;
+
+    @media (hover: hover) {
+        &:hover {
+            background-color: #f3d9bf;
+            img {
+                transform: scale(1.1);
+            }
+        }
+    }
+
+    &[aria-pressed='true'] {
+        background-color: #d9cbc0;
+    }
+
+    &__icon {
+        width: 24px;
+        height: 24px;
+        transition: transform 0.19s linear;
+    }
+}
