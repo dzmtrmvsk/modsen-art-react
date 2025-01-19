@@ -1,14 +1,13 @@
-// import { CompactPainting, CompactPaintingProps } from '@/components/CompactPainting';
-// import { DetailedPainting, DetailedPaintingProps } from '#components/DetailedPainting';
+import { CompactPainting, CompactPaintingProps } from '@/components/CompactPainting'
+import { DetailedPainting } from '@/components/DetailedPainting'
 
-// interface PaintingProps extends CompactPaintingProps extends DetailedPaintingProps {
-//     type?: 'compact' | 'detailed';
-// };
+interface PaintingProps extends CompactPaintingProps {
+  type?: 'compact' | 'detailed'
+}
 
-// export function Painting({ type = 'compact', ...props }: PaintingProps) {
-//     if (type === 'compact') {
-//         return <CompactPainting {...(props as CompactPaintingProps)} />;
-//     }
-
-//     return <DetailedPainting {...(props as DetailedPaintingProps)} />;
-// }
+export function Painting({ type = 'compact', ...props }: PaintingProps) {
+  if (type === 'compact') {
+    return <CompactPainting {...props} />
+  }
+  return <DetailedPainting {...props} />
+}
