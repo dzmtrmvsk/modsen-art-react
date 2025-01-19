@@ -1,5 +1,5 @@
 import styles from './styles.module.scss'
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -10,6 +10,8 @@ import { useDebounceValue } from '@/hooks/useDebounceValue'
 import { usePaintings } from '@/hooks/usePainting'
 import Loader from '../Loader'
 import PageTitle from '../PageTitle'
+import { usePagination } from '@/hooks/usePagination'
+import { Pagination } from '@/components/Pagination'
 
 const SORT_OPTIONS = {
   NONE: 0,
@@ -31,10 +33,23 @@ const MuseumSearch = () => {
     defaultValues: { query: '' },
     resolver: yupResolver(schema)
   })
+  const [searchPage, setSearchPage] = useState<number>(1)
+  const debauncedSearchPage = useDebounceValue(searchPage, 500)
 
   const searchValue = watch('query')
   const throttledQuery = useDebounceValue(searchValue, 600)
-  const { data: arts, isLoading } = usePaintings('search', { query: throttledQuery })
+
+  const { data, isLoading } = usePaintings('search', {
+    query: throttledQuery,
+    page: debauncedSearchPage
+  })
+  const arts = data.artworks || []
+
+  const pagination = usePagination(1, data.pagination?.totalPages || 1, 6)
+
+  useEffect(() => {
+    setSearchPage(pagination.currentPage)
+  }, [pagination])
 
   const [sortField, setSortField] = useState<keyof IPainting | null>(null)
   const [sortOrder, setSortOrder] = useState<number>(SORT_OPTIONS.NONE)
@@ -128,7 +143,10 @@ const MuseumSearch = () => {
             )}
             <div className={styles.museumSearch__results}>
               {sortedArtworks.length > 0 ? (
-                <PaintingsContainer paintings={sortedArtworks} type="compact" />
+                <div className={styles.museumSearch__resultsWrapper}>
+                  <PaintingsContainer paintings={sortedArtworks} type="compact" />
+                  <Pagination pagination={pagination} />
+                </div>
               ) : (
                 <p className={styles.museumSearch__noResults}>
                   No artworks found for <mark>{throttledQuery}</mark>

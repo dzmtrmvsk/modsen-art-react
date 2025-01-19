@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback, useMemo } from 'react'
 import { fetchPaintingsByIds, searchPaintings } from '@/utils/paintingsFetch'
-import { IPainting } from 'src/types/painting'
+import { IPaintingListPagination } from 'src/types/painting'
 
 /**
  * usePaintings
@@ -15,12 +15,12 @@ const usePaintings = (
   mode: 'single' | 'list' | 'search',
   params: { id?: number[]; ids?: number[]; query?: string; limit?: number; page?: number } = {}
 ): {
-  data: IPainting[]
+  data: IPaintingListPagination
   isLoading: boolean
   error: Error | null
   refetch: () => void
 } => {
-  const [data, setData] = useState<IPainting[]>([])
+  const [data, setData] = useState<IPaintingListPagination>({} as IPaintingListPagination)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<Error | null>(null)
 
@@ -68,11 +68,9 @@ const usePaintings = (
     fetchPromise
       .then((result) => {
         if (mode === 'search') {
-          setData(result.paintings.artworks || [])
-        } else {
-          setData(result.artworks || [])
+          setData(result)
+          setIsLoading(false)
         }
-        setIsLoading(false)
       })
       .catch((err) => {
         setError(err)

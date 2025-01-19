@@ -7,6 +7,9 @@ interface PaginationProps {
 }
 
 export function Pagination({ pagination }: PaginationProps) {
+  if (pagination.visiblePages.length === 0) {
+    return null
+  }
   return (
     <div className={styles.pagination}>
       {pagination.hasPrevious && (

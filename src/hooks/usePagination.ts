@@ -24,7 +24,7 @@ export interface PaginationState {
  * @param maxVisiblePages The maximum number of pages to display in the range.
  * @returns An object containing pagination details and actions.
  */
-export function usePaginationHook(
+export function usePagination(
   initialPage: number,
   totalPageCount: number,
   maxVisiblePages: number
@@ -60,8 +60,12 @@ export function usePaginationHook(
   }, [totalPageCount])
 
   useEffect(() => {
-    const updatedPages = createPageRange(1, totalPageCount, currentPage, maxVisiblePages)
-    setVisiblePages(updatedPages)
+    try {
+      const updatedPages = createPageRange(1, totalPageCount, currentPage, maxVisiblePages)
+      setVisiblePages(updatedPages)
+    } catch {
+      setVisiblePages([])
+    }
   }, [currentPage, totalPageCount, maxVisiblePages])
 
   return {

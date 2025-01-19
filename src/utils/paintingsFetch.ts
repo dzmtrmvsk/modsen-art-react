@@ -1,8 +1,7 @@
 import { QUERY_ART_FIELDS, QUERY_ART_TYPE_ID } from '@/constants/paintingQuery'
 import { parsePainting, mapApiPaginationToDetails } from '@/utils/parsers'
 import { IArtworkListResponse, ISearchResults } from 'src/types/apiResponse'
-import { IPaintingList } from 'src/types/painting'
-import { IPaginationDetails } from 'src/types/pagination'
+import { IPaintingList, IPaintingListPagination } from 'src/types/painting'
 import { ART_API_ENDPOINT } from '@/constants/apiParams'
 
 const fetchPaintingsByIds = async (paintingIds: number[]): Promise<IPaintingList> => {
@@ -30,7 +29,7 @@ const searchPaintings = async (
   query: string = '',
   limit: number = 10,
   page: number = 1
-): Promise<{ paintings: IPaintingList; pagination: IPaginationDetails }> => {
+): Promise<IPaintingListPagination> => {
   const url = new URL(`${ART_API_ENDPOINT}/artworks/search`)
   url.searchParams.append('query[term][artwork_type_id]', QUERY_ART_TYPE_ID.toString())
   url.searchParams.append('fields', QUERY_ART_FIELDS.join(','))
@@ -47,13 +46,11 @@ const searchPaintings = async (
   }
 
   const data: ISearchResults = await response.json()
-
-  return {
-    paintings: {
-      artworks: data.data.map((paintingJson) => parsePainting(paintingJson, data.config))
-    },
+  const result: IPaintingListPagination = {
+    artworks: data.data.map((paintingJson) => parsePainting(paintingJson, data.config)),
     pagination: mapApiPaginationToDetails(data.pagination)
   }
+  return result
 }
 
 export { fetchPaintingsByIds, searchPaintings }

@@ -1,3 +1,5 @@
+import { IPaginationDetails } from './pagination'
+
 export interface IPainting {
   id: number
   title: string
@@ -13,6 +15,10 @@ export interface IPainting {
 
 export interface IPaintingList {
   artworks: IPainting[]
+}
+
+export interface IPaintingListPagination extends IPaintingList {
+  pagination: IPaginationDetails
 }
 
 export interface IAPIArtwork {

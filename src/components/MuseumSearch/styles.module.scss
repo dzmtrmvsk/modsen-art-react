@@ -45,6 +45,7 @@
         flex-wrap: wrap;
     }
 
+
     &__sortingTitle {
         font-size: 20px;
         font-weight: 500;
@@ -90,6 +91,13 @@
         border-radius: 8px;
         padding: 1rem;
         padding-top: 24px;
+    }
+
+    &__resultsWrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        align-items: flex-end;
     }
 
     &__noResults {
