@@ -1,0 +1,61 @@
+.paintingCard {
+    padding: 16px;
+    display: grid;
+    grid-template-columns: 1fr 2fr auto;
+    gap: 16px;
+    max-width: 600px;
+    max-height: 140px;
+    width: 100%;
+    border: 1px solid #F0F1F1;
+    background: #fff;
+    cursor: pointer;
+    transition: transform 0.2s ease-out;
+
+    &:hover {
+        transform: scale(1.03);
+    }
+
+    &__imageWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    &__artworkImage {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+
+    &__details {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    &__paintingTitle {
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    &__artistName {
+        font-size: 16px;
+        color: #d1893a;
+    }
+
+    &__galleryStatus {
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    &__actionsWrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
