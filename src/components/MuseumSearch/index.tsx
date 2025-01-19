@@ -9,6 +9,7 @@ import SearchLine from '@/components/SearchLine'
 import { useDebounceValue } from '@/hooks/useDebounceValue'
 import { usePaintings } from '@/hooks/usePainting'
 import Loader from '../Loader'
+import PageTitle from '../PageTitle'
 
 const SORT_OPTIONS = {
   NONE: 0,
@@ -32,7 +33,7 @@ const MuseumSearch = () => {
   })
 
   const searchValue = watch('query')
-  const throttledQuery = useDebounceValue(searchValue, 300)
+  const throttledQuery = useDebounceValue(searchValue, 600)
   const { data: arts, isLoading } = usePaintings('search', { query: throttledQuery })
 
   const [sortField, setSortField] = useState<keyof IPainting | null>(null)
@@ -80,7 +81,13 @@ const MuseumSearch = () => {
   const onSearch = handleSubmit(() => {})
 
   return (
-    <div className={styles.museumSearch}>
+    <section className={styles.museumSearch}>
+      <div className={styles.museumSearch__heading}>
+        <PageTitle className={styles.museumSearch__title}>
+          Let&apos;s find some <span className={styles.museumSearch__highlight}>art</span>
+        </PageTitle>
+        <PageTitle className={styles.museumSearch__title}>here</PageTitle>
+      </div>
       <form className={styles.museumSearch__form} onSubmit={onSearch}>
         <Controller
           name="query"
@@ -89,29 +96,36 @@ const MuseumSearch = () => {
         />
       </form>
       {isLoading ? (
-        <Loader />
+        <div className={styles.museumSearch__loader}>
+          <Loader />
+        </div>
       ) : (
         throttledQuery && (
           <>
-            <div className={styles.museumSearch__sorting}>
-              {SORT_FIELDS.map((field, index) => (
-                <button
-                  key={field}
-                  className={`${styles.museumSearch__sortButton} ${
-                    sortField === field && styles['gallerySearch__sortButton--active']
-                  }`}
-                  onClick={() => handleSort(field)}
-                  type="button">
-                  {FIELD_LABELS[index]}{' '}
-                  {sortField === field &&
-                    (sortOrder === SORT_OPTIONS.ASC
-                      ? '↑'
-                      : sortOrder === SORT_OPTIONS.DESC
-                        ? '↓'
-                        : '')}
-                </button>
-              ))}
-            </div>
+            {sortedArtworks.length !== 0 && (
+              <div className={styles.museumSearch__sorting}>
+                <p className={styles.museumSearch__sortingTitle}>Filter your results by:</p>
+                <div className={styles.museumSearch__sortingButtons}>
+                  {SORT_FIELDS.map((field, index) => (
+                    <button
+                      key={field}
+                      className={`${styles.museumSearch__sortButton} ${
+                        sortField === field && styles['gallerySearch__sortButton--active']
+                      }`}
+                      onClick={() => handleSort(field)}
+                      type="button">
+                      {FIELD_LABELS[index]}{' '}
+                      {sortField === field &&
+                        (sortOrder === SORT_OPTIONS.ASC
+                          ? '↑'
+                          : sortOrder === SORT_OPTIONS.DESC
+                            ? '↓'
+                            : '')}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
             <div className={styles.museumSearch__results}>
               {sortedArtworks.length > 0 ? (
                 <PaintingsContainer paintings={sortedArtworks} type="compact" />
@@ -124,7 +138,7 @@ const MuseumSearch = () => {
           </>
         )
       )}
-    </div>
+    </section>
   )
 }
 

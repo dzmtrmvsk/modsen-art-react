@@ -1,13 +1,31 @@
+@import '/src/styles/colors.scss';
+
 .museumSearch {
     display: flex;
     flex-direction: column;
     gap: 32px;
 
-    &__sorting {
+    &__loader {
         display: flex;
         justify-content: center;
-        gap: 16px;
-        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    &__heading {
+        padding-top: 120px;
+    }
+
+    &__title {
+        line-height: 1;
+        font-size: 64px;
+        font-weight: 700;
+        font-family: 'Lexend Deca', sans-serif;
+        color: $color-primary;
+        text-transform: capitalize;
+    }
+
+    &__highlight {
+        color: $color-orange;
     }
 
     &__form {
@@ -19,6 +37,33 @@
         }
     }
 
+    &__sorting {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    &__sortingTitle {
+        font-size: 20px;
+        font-weight: 500;
+        font-family: 'Lexend Deca', sans-serif;
+        color: $color-primary;
+    }
+
+    &__sortingButtons {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    &__noResults {
+        font-size: 24px;
+        font-weight: 700;
+        font-family: 'Lexend Deca', sans-serif;
+        color: $color-primary;
+    }
 
     &__sortButton {
         font-size: 18px;
@@ -50,5 +95,11 @@
     &__noResults {
         text-align: center;
         color: #a3a3a3;
+    }
+
+    @media screen and (max-width : 650px) {
+        &__heading {
+            padding-top: 30px;
+        }
     }
 }

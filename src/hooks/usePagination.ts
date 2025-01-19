@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { createPageRange } from '@/utils/pagination'
 
-export type PaginationState = {
+export interface PaginationState {
   startPage: number
   endPage: number
   currentPage: number

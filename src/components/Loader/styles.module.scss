@@ -1,38 +1,36 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 .loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
     width: 200px;
     height: 200px;
+
+    svg {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        &:nth-child(1) circle {
+            filter: blur(10px);
+            stroke: #ec923e;
+        }
+
+        &:nth-child(2) circle {
+            filter: blur(20px);
+            stroke: #e1d2d2;
+        }
+
+        circle {
+            fill: none;
+            stroke: #fbf7f7;
+            stroke-width: 10px;
+            stroke-linecap: round;
+            animation: animate 1.25s linear infinite;
+        }
+    }
 }
 
-.loader svg {
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.loader svg circle {
-    fill: none;
-    stroke: #fbf7f7;
-    stroke-width: 10px;
-    stroke-linecap: round;
-    animation: animate 1.25s linear infinite;
-}
-
-.loader svg:nth-child(1) circle {
-    filter: blur(10px);
-    stroke: #ec923e;
-}
-
-.loader svg:nth-child(2) circle {
-    filter: blur(20px);
-    stroke: #e1d2d2;
-}
 
 @keyframes animate {
     0% {
