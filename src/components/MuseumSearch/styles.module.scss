@@ -1,113 +1,56 @@
 @import '/src/styles/colors.scss';
 
 .museumSearch {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
+  &__loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__heading {
+    padding-top: 120px;
+
+    @media screen and (max-width: 650px) {
+      padding-top: 30px;
+    }
+  }
+
+  &__title {
+    line-height: 1;
+    font-size: 64px;
+    font-weight: 700;
+    font-family: 'Lexend Deca', sans-serif;
+    color: $color-primary;
+    text-transform: capitalize;
+  }
+
+  &__highlight {
+    color: $color-orange;
+  }
+
+  &__form {
+    display: flex;
+    justify-content: center;
+
+    div {
+      width: 760px;
+    }
+
+    @media screen and (max-width: 650px) {
+      div {
+        width: 100%;
+        padding: 0 16px;
+      }
+    }
+  }
+
+  &__resultWrapper {
     display: flex;
     flex-direction: column;
-    gap: 32px;
-
-    &__loader {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    &__heading {
-        padding-top: 120px;
-    }
-
-    &__title {
-        line-height: 1;
-        font-size: 64px;
-        font-weight: 700;
-        font-family: 'Lexend Deca', sans-serif;
-        color: $color-primary;
-        text-transform: capitalize;
-    }
-
-    &__highlight {
-        color: $color-orange;
-    }
-
-    &__form {
-        display: flex;
-        justify-content: center;
-
-        div {
-            width: 760px;
-        }
-    }
-
-    &__sorting {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 16px;
-        flex-wrap: wrap;
-    }
-
-
-    &__sortingTitle {
-        font-size: 20px;
-        font-weight: 500;
-        font-family: 'Lexend Deca', sans-serif;
-        color: $color-primary;
-    }
-
-    &__sortingButtons {
-        display: flex;
-        gap: 15px;
-        flex-wrap: wrap;
-    }
-
-    &__noResults {
-        font-size: 24px;
-        font-weight: 700;
-        font-family: 'Lexend Deca', sans-serif;
-        color: $color-primary;
-    }
-
-    &__sortButton {
-        font-size: 18px;
-        font-family: 'Inter', sans-serif;
-        padding: 12px 24px;
-        border: none;
-        border-radius: 8px;
-        background-color: #f3f3f3;
-        transition: all 0.2s ease;
-
-        &:hover {
-            background-color: #f0f0f0;
-            color: #e0a449;
-        }
-
-        &--active {
-            font-weight: bold;
-            color: #e0a449;
-        }
-    }
-
-    &__results {
-        background-color: #fafafa;
-        border-radius: 8px;
-        padding: 1rem;
-        padding-top: 24px;
-    }
-
-    &__resultsWrapper {
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
-        align-items: flex-end;
-    }
-
-    &__noResults {
-        text-align: center;
-        color: #a3a3a3;
-    }
-
-    @media screen and (max-width : 650px) {
-        &__heading {
-            padding-top: 30px;
-        }
-    }
+    align-items: center;
+  }
 }

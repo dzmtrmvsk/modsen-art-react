@@ -1,0 +1,42 @@
+@import '/src/styles/colors.scss';
+
+.sortButtons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  
+    &__title {
+      font-size: 20px;
+      font-weight: 500;
+      font-family: 'Lexend Deca', sans-serif;
+      color: $color-primary;
+    }
+  
+    &__container {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+  
+    &__button {
+      font-size: 18px;
+      font-family: 'Inter', sans-serif;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      background-color: #f3f3f3;
+      transition: all 0.2s ease;
+
+      &:hover {
+          background-color: #f0f0f0;
+          color: #e0a449;
+      }
+
+      &--active {
+          font-weight: bold;
+          color: #e0a449;
+      }
+    }
+  }
+  

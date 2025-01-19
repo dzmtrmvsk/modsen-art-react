@@ -4,23 +4,21 @@ import { useForm, Controller } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { IPainting } from 'src/types/painting'
-import PaintingsContainer from '@/components/PaintingsContainer'
 import SearchLine from '@/components/SearchLine'
 import { useDebounceValue } from '@/hooks/useDebounceValue'
 import { usePaintings } from '@/hooks/usePainting'
-import Loader from '../Loader'
-import PageTitle from '../PageTitle'
+import Loader from '@/components/Loader'
+import PageTitle from '@/components/PageTitle'
 import { usePagination } from '@/hooks/usePagination'
-import { Pagination } from '@/components/Pagination'
+import SortButtons from '@/components/SortButtons'
+import PaintingMiniList from '@/components/PaintingMiniList/PaintingMiniList'
+import NoResultsMessage from '@/components/NoResultsMessage/index'
 
 const SORT_OPTIONS = {
   NONE: 0,
   ASC: 1,
   DESC: 2
 } as const
-
-const SORT_FIELDS: (keyof IPainting)[] = ['title', 'artistName', 'displayedInGallery']
-const FIELD_LABELS = ['Title', 'Artist', 'Availability']
 
 const schema = yup.object({
   query: yup.string().max(100, 'Search query is too long.').required()
@@ -117,42 +115,14 @@ const MuseumSearch = () => {
       ) : (
         throttledQuery && (
           <>
-            {sortedArtworks.length !== 0 && (
-              <div className={styles.museumSearch__sorting}>
-                <p className={styles.museumSearch__sortingTitle}>Filter your results by:</p>
-                <div className={styles.museumSearch__sortingButtons}>
-                  {SORT_FIELDS.map((field, index) => (
-                    <button
-                      key={field}
-                      className={`${styles.museumSearch__sortButton} ${
-                        sortField === field && styles['gallerySearch__sortButton--active']
-                      }`}
-                      onClick={() => handleSort(field)}
-                      type="button">
-                      {FIELD_LABELS[index]}{' '}
-                      {sortField === field &&
-                        (sortOrder === SORT_OPTIONS.ASC
-                          ? '↑'
-                          : sortOrder === SORT_OPTIONS.DESC
-                            ? '↓'
-                            : '')}
-                    </button>
-                  ))}
-                </div>
+            {sortedArtworks.length !== 0 ? (
+              <div className={styles.museumSearch__resultWrapper}>
+                <SortButtons sortField={sortField} sortOrder={sortOrder} handleSort={handleSort} />
+                <PaintingMiniList artworks={sortedArtworks} pagination={pagination} />
               </div>
+            ) : (
+              <NoResultsMessage query={throttledQuery} />
             )}
-            <div className={styles.museumSearch__results}>
-              {sortedArtworks.length > 0 ? (
-                <div className={styles.museumSearch__resultsWrapper}>
-                  <PaintingsContainer paintings={sortedArtworks} type="compact" />
-                  <Pagination pagination={pagination} />
-                </div>
-              ) : (
-                <p className={styles.museumSearch__noResults}>
-                  No artworks found for <mark>{throttledQuery}</mark>
-                </p>
-              )}
-            </div>
           </>
         )
       )}
