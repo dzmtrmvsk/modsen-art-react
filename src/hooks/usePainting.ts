@@ -27,7 +27,7 @@ const usePaintings = (
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<Error | null>(null)
 
-  const stableParams = useMemo(() => params, [JSON.stringify(params)])
+  const stableParams = useMemo(() => params, [params])
 
   const fetchData = useCallback(() => {
     setIsLoading(true)
@@ -78,7 +78,7 @@ const usePaintings = (
     if ((mode === 'search' && params.query !== '') || mode === 'list' || mode === 'pagination') {
       fetchData()
     }
-  }, [fetchData])
+  }, [fetchData, mode, params.query])
 
   return { data, isLoading, error }
 }

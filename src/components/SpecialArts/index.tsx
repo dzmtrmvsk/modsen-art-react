@@ -2,7 +2,6 @@ import styles from './styles.module.scss'
 import { useMemo, useState, useEffect } from 'react'
 import { usePaintings } from '@/hooks/usePainting'
 import { usePagination } from '@/hooks/usePagination'
-import PageTitle from '@/components/PageTitle'
 import Loader from '@/components/Loader'
 import { useDebounceValue } from '@/hooks/useDebounceValue'
 import { getRandomPage } from '@/utils/pagination'
@@ -28,8 +27,8 @@ const SpecialArts = () => {
     <section className={styles.specialArts}>
       <div className={styles.specialArts__wrapper}>
         <div className={styles.specialArts__headerWrapper}>
-          <PageTitle className={styles.specialArts__subHeading}>Topics for you</PageTitle>
-          <PageTitle className={styles.specialArts__heading}>Our special gallery</PageTitle>
+          <h6 className={styles.specialArts__subHeading}>Topics for you</h6>
+          <h3 className={styles.specialArts__heading}>Our special gallery</h3>
         </div>
         <div className={styles.specialArts__content}>
           {isLoading ? (
