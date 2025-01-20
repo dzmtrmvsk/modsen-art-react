@@ -1,0 +1,29 @@
+@import '/src/styles/colors.scss';
+
+.forYou {
+    padding: 120px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Lexend Deca', sans-serif;
+
+    &__headerWrapper {
+        padding-bottom: 40px;
+    }
+
+    &__heading {
+        font-size: 32px;
+        color: $color-primary;
+    }
+
+    &__subHeading {
+        font-size: 16px;
+        color: $color-orange;
+    }
+
+    &__content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
