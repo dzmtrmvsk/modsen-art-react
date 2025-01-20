@@ -54,4 +54,27 @@ const searchPaintings = async (
   return result
 }
 
-export { fetchPaintingsByIds, searchPaintings }
+const paginateFetchPaintings = async (
+  limit: number = 10,
+  page: number = 1
+): Promise<IPaintingListPagination> => {
+  const url = new URL(`${ART_API_ENDPOINT}/artworks`)
+  url.searchParams.append('fields', QUERY_ART_FIELDS.join(','))
+  url.searchParams.append('limit', limit.toString())
+  url.searchParams.append('page', page.toString())
+
+  const response = await fetch(url.toString())
+
+  if (!response.ok) {
+    throw new Error((await response.text()) || 'Error searching artworks.')
+  }
+
+  const data: ISearchResults = await response.json()
+  const result: IPaintingListPagination = {
+    artworks: data.data.map((paintingJson) => parsePainting(paintingJson, data.config)),
+    pagination: mapApiPaginationToDetails(data.pagination)
+  }
+  return result
+}
+
+export { fetchPaintingsByIds, searchPaintings, paginateFetchPaintings }

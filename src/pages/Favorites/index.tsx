@@ -1,5 +1,5 @@
 import PageLayout from '@/components/PageLayout'
-import PaintingMiniList from '@/components/PaintingMiniList/PaintingMiniList'
+import PaintingsList from '@/components/PaintingsList/PaintingsList'
 import { usePaintings } from '@/hooks/usePainting'
 
 import { useSavedIds } from '@/hooks/useSavedIds'
@@ -9,7 +9,7 @@ const FavoritesPage = () => {
   const { data } = usePaintings('list', { ids: savedIds })
   return (
     <PageLayout>
-      <PaintingMiniList artworks={data.artworks} />
+      <PaintingsList artworks={data?.artworks} type="compact" />
     </PageLayout>
   )
 }

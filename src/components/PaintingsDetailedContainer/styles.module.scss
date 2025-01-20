@@ -1,0 +1,27 @@
+.detailedContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__wrapper {
+        display: grid;
+        gap: 60px;
+        grid-template-columns: repeat(3, 1fr);
+        align-items: center;
+        justify-items: center;
+        width: 100%;
+
+        @media (max-width: 1300px) {
+            grid-template-columns: repeat(2, 1fr);
+
+            &> :nth-last-child(1):nth-child(odd) {
+                grid-column: 1 / -1;
+                justify-self: center;
+            }
+        }
+
+        @media (max-width: 872px) {
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
+}

@@ -33,4 +33,8 @@ const createPageRange = (
   return pageRange
 }
 
-export { createPageRange }
+function getRandomPage() {
+  return Math.floor(Math.random() * (10000 - 10 + 1)) + 10
+}
+
+export { createPageRange, getRandomPage }

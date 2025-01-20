@@ -1,5 +1,9 @@
 import { useEffect, useState, useCallback, useMemo } from 'react'
-import { fetchPaintingsByIds, searchPaintings } from '@/utils/paintingsFetch'
+import {
+  fetchPaintingsByIds,
+  searchPaintings,
+  paginateFetchPaintings
+} from '@/utils/paintingsFetch'
 import { IPaintingListPagination } from 'src/types/painting'
 
 /**
@@ -12,13 +16,12 @@ import { IPaintingListPagination } from 'src/types/painting'
  * @returns An object with data (array of paintings), loading state, error, and a function to refetch the request.
  */
 const usePaintings = (
-  mode: 'list' | 'search',
+  mode: 'list' | 'search' | 'pagination',
   params: { id?: number[]; ids?: number[]; query?: string; limit?: number; page?: number } = {}
 ): {
   data: IPaintingListPagination
   isLoading: boolean
   error: Error | null
-  refetch: () => void
 } => {
   const [data, setData] = useState<IPaintingListPagination>({} as IPaintingListPagination)
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -50,6 +53,10 @@ const usePaintings = (
         )
         break
 
+      case 'pagination':
+        fetchPromise = paginateFetchPaintings(stableParams.limit || 9, stableParams.page || 1)
+        break
+
       default:
         setIsLoading(false)
         setError(new Error(`Unsupported mode: ${mode}`))
@@ -68,12 +75,12 @@ const usePaintings = (
   }, [mode, stableParams])
 
   useEffect(() => {
-    if ((mode === 'search' && params.query !== '') || mode === 'list') {
+    if ((mode === 'search' && params.query !== '') || mode === 'list' || mode === 'pagination') {
       fetchData()
     }
   }, [fetchData])
 
-  return { data, isLoading, error, refetch: fetchData }
+  return { data, isLoading, error }
 }
 
 export { usePaintings }

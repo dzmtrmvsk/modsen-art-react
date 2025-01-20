@@ -30,7 +30,7 @@ const CompactPainting = ({
 
   const toggleFavoriteStatus = useCallback(() => {
     toggleFavorites(id)
-  }, [id, isFavorite, toggleFavorites])
+  }, [id, toggleFavorites])
 
   const stopPropagationHandler = useCallback((e: React.MouseEvent) => {
     e.stopPropagation()

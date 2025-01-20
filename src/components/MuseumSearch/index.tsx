@@ -11,7 +11,7 @@ import Loader from '@/components/Loader'
 import PageTitle from '@/components/PageTitle'
 import { usePagination } from '@/hooks/usePagination'
 import SortButtons from '@/components/SortButtons'
-import PaintingMiniList from '@/components/PaintingMiniList/PaintingMiniList'
+import PaintingList from '@/components/PaintingsList/PaintingsList'
 import NoResultsMessage from '@/components/NoResultsMessage/index'
 
 const SORT_OPTIONS = {
@@ -39,7 +39,8 @@ const MuseumSearch = () => {
 
   const { data, isLoading } = usePaintings('search', {
     query: throttledQuery,
-    page: debauncedSearchPage
+    page: debauncedSearchPage,
+    limit: 9
   })
   const arts = data.artworks || []
 
@@ -118,7 +119,7 @@ const MuseumSearch = () => {
             {sortedArtworks.length !== 0 ? (
               <div className={styles.museumSearch__resultWrapper}>
                 <SortButtons sortField={sortField} sortOrder={sortOrder} handleSort={handleSort} />
-                <PaintingMiniList artworks={sortedArtworks} pagination={pagination} />
+                <PaintingList artworks={sortedArtworks} pagination={pagination} type="compact" />
               </div>
             ) : (
               <NoResultsMessage query={throttledQuery} />

@@ -1,0 +1,46 @@
+import styles from './styles.module.scss'
+import { useMemo, useState, useEffect } from 'react'
+import { usePaintings } from '@/hooks/usePainting'
+import { usePagination } from '@/hooks/usePagination'
+import PageTitle from '@/components/PageTitle'
+import Loader from '@/components/Loader'
+import { useDebounceValue } from '@/hooks/useDebounceValue'
+import { getRandomPage } from '@/utils/pagination'
+import PaintingsList from '../PaintingsList/PaintingsList'
+
+const SpecialArts = () => {
+  const page = useMemo(getRandomPage, [])
+  const [searchPage, setSearchPage] = useState<number>(1)
+  const debauncedSearchPage = useDebounceValue(searchPage, 400)
+  const { data, isLoading } = usePaintings('pagination', {
+    limit: 3,
+    page: debauncedSearchPage + page
+  })
+  const pagination = usePagination(searchPage, data?.pagination?.totalPages || 1, 4)
+
+  const visibleArts = data?.artworks?.length > 0 ? data.artworks : null
+
+  useEffect(() => {
+    setSearchPage(pagination.currentPage)
+  }, [pagination])
+
+  return (
+    <section className={styles.specialArts}>
+      <div className={styles.specialArts__wrapper}>
+        <div className={styles.specialArts__headerWrapper}>
+          <PageTitle className={styles.specialArts__subHeading}>Topics for you</PageTitle>
+          <PageTitle className={styles.specialArts__heading}>Our special gallery</PageTitle>
+        </div>
+        <div className={styles.specialArts__content}>
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <PaintingsList artworks={visibleArts} pagination={pagination} type="detailed" />
+          )}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+export default SpecialArts

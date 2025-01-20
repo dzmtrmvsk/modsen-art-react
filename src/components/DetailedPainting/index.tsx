@@ -10,19 +10,25 @@ const DetailedPainting = ({
   painting,
   isMarkedAsFavorite,
   onPaintingClick,
-  addToFavorites,
-  removeFromFavorites
+  toggleFavorites
 }: CompactPaintingProps) => {
   const onCardInteraction = useCallback(() => {
-    onPaintingClick(painting.id)
+    if (painting) {
+      onPaintingClick(painting.id)
+    }
   }, [painting, onPaintingClick])
 
   const toggleFavoriteStatus = useCallback(() => {
-    const toggleAction = isMarkedAsFavorite(painting.id) ? removeFromFavorites : addToFavorites
-    toggleAction(painting.id)
-  }, [painting, isMarkedAsFavorite, addToFavorites, removeFromFavorites])
+    if (painting) {
+      toggleFavorites(painting.id)
+    }
+  }, [painting, toggleFavorites])
 
   const preventPropagation = useCallback((e: React.MouseEvent) => e.stopPropagation(), [])
+
+  if (!painting) {
+    return <div className={styles.detailedPainting__empty}>No painting available</div>
+  }
 
   return (
     <div className={styles.detailedPainting} onClick={onCardInteraction}>

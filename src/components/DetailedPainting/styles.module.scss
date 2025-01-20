@@ -1,59 +1,62 @@
+@import '/src/styles/colors.scss';
+
 .detailedPainting {
-    background-color: transparent;
-    max-width: 600px;
+    max-width: 514px;
     width: 100%;
     color: inherit;
+    cursor: pointer;
+    background-color: transparent;
+    font-family: 'Lexend Deca', sans-serif;
 
     &__thumbnailWrapper {
         position: relative;
         z-index: 0;
-        margin-bottom: -65px;
-        cursor: pointer;
+        margin-bottom: -62px;
     }
 
     &__thumbnail {
         width: 100%;
-        height: 450px;
+        height: 445px;
         object-fit: cover;
     }
 
     &__detailsWrapper {
+        padding: 16px 24px;
+        max-width: 330px;
+        max-height: 130px;
         border: 1px solid #f0f1f1;
         background-color: #ffffff;
-        padding: 1em;
         display: grid;
         grid-template-columns: minmax(0, 2fr) 0.5fr;
         grid-template-rows: minmax(0, 1fr);
         justify-items: stretch;
         align-items: stretch;
-        gap: 1em;
-        max-width: 330px;
-        max-height: 130px;
+        gap: 8px;
         margin: auto;
         position: relative;
         z-index: 1;
-        cursor: pointer;
     }
 
     &__information {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 0.1fr 1fr 1fr 1fr;
-        align-items: center;
-
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
         width: 100%;
         height: 100%;
     }
 
     &__paintingTitle {
+        color: $color-primary;
         font-weight: 500;
+        font-size: 18px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
 
     &__artistName {
-        color: #e0a449;
+        color: $color-orange;
+        font-size: 16px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -61,11 +64,21 @@
 
     &__visibility {
         font-weight: bold;
-        align-self: end;
+        font-size: 16px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     &__actionsWrapper {
         align-self: center;
         justify-self: center;
+    }
+
+    @media (max-width: 550px) {
+        &__thumbnail {
+            height: auto;
+            max-height: 400px;
+        }
     }
 }
