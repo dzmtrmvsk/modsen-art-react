@@ -1,16 +1,21 @@
 import PageLayout from '@/components/PageLayout'
-import PaintingsList from '@/components/PaintingsList/PaintingsList'
-import { usePaintings } from '@/hooks/usePainting'
+import { lazy, Suspense } from 'react'
+import Loader from '@/components/Loader'
+import { ErrorBoundary } from '@/components/ErrorBoundary'
+import ErrorFallback from '@/components/ErrorFallback'
 
-import { useSavedIds } from '@/hooks/useSavedIds'
+const FavoriteArts = lazy(() => import('@/components/FavoriteArts'))
 
 const FavoritesPage = () => {
-  const { savedIds } = useSavedIds()
-  const { data } = usePaintings('list', { ids: savedIds })
   return (
     <PageLayout>
-      <PaintingsList artworks={data?.artworks} type="compact" />
+      <ErrorBoundary fallback={(error) => <ErrorFallback error={error} />}>
+        <Suspense fallback={<Loader />}>
+          <FavoriteArts />
+        </Suspense>
+      </ErrorBoundary>
     </PageLayout>
   )
 }
+
 export default FavoritesPage

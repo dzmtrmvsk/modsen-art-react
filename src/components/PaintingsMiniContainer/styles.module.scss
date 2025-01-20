@@ -5,12 +5,19 @@
 
     &__wrapper {
         display: grid;
+        justify-content: center;
+        align-items: center;
         gap: 16px;
         grid-template-columns: repeat(3, 1fr);
         width: 100%;
 
         @media (max-width: 1300px) {
             grid-template-columns: repeat(2, 1fr);
+
+            &> :nth-last-child(1):nth-child(odd) {
+                grid-column: 1 / -1;
+                justify-self: center;
+            }
         }
 
         @media (max-width: 872px) {

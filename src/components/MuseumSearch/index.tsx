@@ -42,7 +42,7 @@ const MuseumSearch = () => {
     page: debauncedSearchPage,
     limit: 9
   })
-  const arts = data.artworks || []
+  const arts = useMemo(() => data.artworks || [], [data.artworks])
 
   const pagination = usePagination(1, data.pagination?.totalPages || 1, 6)
 
@@ -100,7 +100,7 @@ const MuseumSearch = () => {
         <PageTitle className={styles.museumSearch__title}>
           Let&apos;s find some <span className={styles.museumSearch__highlight}>art</span>
         </PageTitle>
-        <PageTitle className={styles.museumSearch__title}>here</PageTitle>
+        <p className={styles.museumSearch__title}>here</p>
       </div>
       <form className={styles.museumSearch__form} onSubmit={onSearch}>
         <Controller

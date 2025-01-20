@@ -33,19 +33,19 @@
     }
 
     &__imageWrapper {
-        width: 80px;
-        height: 80px;
         display: flex;
         justify-content: center;
         align-items: center;
         overflow: hidden;
-
+    
         img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+          width: 80px;
+          height: 80px;
+          object-fit: cover; 
+          flex-shrink: 0;
+          flex-grow: 0;
         }
-    }
+      }
 
     &__details {
         align-self: stretch;
