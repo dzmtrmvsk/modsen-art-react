@@ -1,12 +1,17 @@
 .footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
+    background-color: #FFFFFF;
 
-    @media (max-width: 460px) {
-        flex-direction: column;
-        justify-content: center;
-        gap: 30px;
+    &__wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 32px;
+
+        @media (max-width: 460px) {
+            flex-direction: column;
+            justify-content: center;
+            gap: 30px;
+        }
     }
 }

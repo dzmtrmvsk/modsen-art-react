@@ -1,11 +1,11 @@
 import { FC } from 'react'
 
-type RouteLink = {
+export interface RouteLink {
   label: string
   icon: string
-} | null
+}
 
-type RouteConfig = {
+export interface RouteConfig {
   path: string
   element: FC
   navigation: RouteLink
@@ -13,7 +13,7 @@ type RouteConfig = {
   generatePath: (..._args: any[]) => string
 }
 
-export type RoutesType = {
+export interface RoutesType {
   home: RouteConfig
   info: RouteConfig & { generatePath: (_id: number | string) => string }
   favorites: RouteConfig

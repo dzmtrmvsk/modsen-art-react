@@ -1,3 +1,7 @@
-export const InfoPage = () => {
-  return <div>Info</div>
+import PageLayout from '@/components/PageLayout'
+
+const InfoPage = () => {
+  return <PageLayout></PageLayout>
 }
+
+export default InfoPage

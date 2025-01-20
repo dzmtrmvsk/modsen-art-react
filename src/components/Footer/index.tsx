@@ -5,10 +5,12 @@ import ModsenLogo from '@/components/ModsenLogo'
 
 const Footer = () => {
   return (
-    <Container className={styles.footer}>
-      <GalleryLogo type="dark" />
-      <ModsenLogo />
-    </Container>
+    <footer className={styles.footer}>
+      <Container className={styles.footer__wrapper}>
+        <GalleryLogo type="dark" />
+        <ModsenLogo />
+      </Container>
+    </footer>
   )
 }
 

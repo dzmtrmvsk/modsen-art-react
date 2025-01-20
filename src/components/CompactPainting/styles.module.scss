@@ -1,0 +1,166 @@
+@import '/src/styles/colors.scss';
+
+.paintingCard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: transform 0.2s ease-out;
+    box-sizing: border-box;
+    color: $color-primary;
+
+    &__wrapper {
+        border: 1px solid #F0F1F1;
+        background: #fff;
+        padding: 16px;
+        width: 416px;
+        height: 140px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__infoWrapper {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        overflow: hidden;
+    }
+
+    &:hover {
+        transform: scale(1.01);
+    }
+
+    &__imageWrapper {
+        width: 80px;
+        height: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    &__details {
+        align-self: stretch;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 4px;
+        overflow: hidden;
+    }
+
+    &__title {
+        font-size: 18px;
+        font-weight: 500;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__artistName {
+        font-size: 16px;
+        font-weight: 400;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: $color-orange;
+    }
+
+
+    &__galleryStatus {
+        font-weight: 700;
+    }
+
+    &__artInfo {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    &__actionsWrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 1300px) {
+    .paintingCard {
+        &__wrapper {
+            width: 500px;
+            height: 200px;
+        }
+
+        &__title {
+            font-size: 22px;
+        }
+
+        &__artistName {
+            font-size: 20px;
+        }
+
+        &__galleryStatus {
+            font-size: 22px;
+        }
+    }
+}
+
+@media (max-width: 1030px) {
+    .paintingCard {
+        &__wrapper {
+            width: 416px;
+            height: 140px;
+        }
+    }
+}
+
+@media (max-width: 872px) {
+    .paintingCard {
+        &__wrapper {
+            width: 90vw;
+            height: auto;
+        }
+    }
+}
+
+@media (max-width: 608px) {
+    .paintingCard {
+        &__wrapper {
+            padding: 10px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+        }
+
+        &__actionsWrapper {
+            button {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        &__details {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        &__actionsWrapper {
+            flex-shrink: 0;
+            margin-left: 2px;
+        }
+
+        &__title,
+        &__artistName,
+        &__galleryStatus {
+            font-size: 14px;
+        }
+    }
+}

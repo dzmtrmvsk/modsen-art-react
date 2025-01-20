@@ -1,0 +1,16 @@
+@import '/src/styles/colors.scss';
+
+.noResultsMessage {
+    font-size: 24px;
+    font-weight: 700;
+    font-family: 'Lexend Deca', sans-serif;
+    color: $color-primary;
+    text-align: center;
+  
+    mark {
+      background-color: transparent;
+      color: #e0a449;
+      font-weight: bold;
+    }
+  }
+  
