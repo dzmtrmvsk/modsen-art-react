@@ -65,7 +65,7 @@ const CompactPainting = ({
           </div>
         </div>
         <div className={styles.paintingCard__actionsWrapper} onClick={stopPropagationHandler}>
-          <BookmarkToggle isSelected={isFavorite} onToggle={toggleFavoriteStatus} />
+          <BookmarkToggle isSelected={isFavorite} onToggle={toggleFavoriteStatus} id={id} />
         </div>
       </div>
     </div>

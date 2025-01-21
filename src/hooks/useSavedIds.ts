@@ -1,11 +1,16 @@
 import { getSavedArtIds, addSavedArt, removeSavedArt } from '@/utils/sessionStorage'
 import { useCallback, useMemo, useState } from 'react'
 
-const useSavedIds = () => {
-  const [savedIds, setSavedIds] = useState(getSavedArtIds())
+interface UseSavedIdsResult {
+  savedIds: number[]
+  toggle: (id: number) => void
+}
+
+const useSavedIds = (): UseSavedIdsResult => {
+  const [savedIds, setSavedIds] = useState<number[]>(getSavedArtIds())
 
   const toggleSaved = useCallback(
-    (id) => {
+    (id: number): void => {
       if (savedIds.includes(id)) {
         removeSavedArt(id)
       } else {

@@ -37,7 +37,7 @@ const SpecialArts = () => {
         </div>
         <div className={styles.specialArts__content}>
           {isLoading ? (
-            <Loader />
+            <Loader text="Looking for the best paintings in the world for you..." />
           ) : (
             <PaintingsList artworks={visibleArts} pagination={pagination} type="detailed" />
           )}

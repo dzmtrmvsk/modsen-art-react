@@ -16,7 +16,6 @@
         color: white;
         font-family: 'Inter', sans-serif;
         transition: color 0.2s ease-in-out;
-
         @media (hover: hover) {
             &:hover {
                 color: $color-accent;

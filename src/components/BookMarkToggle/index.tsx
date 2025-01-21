@@ -5,17 +5,29 @@ import styles from './styles.module.scss'
 
 interface BookmarkToggleProps {
   isSelected?: boolean
-  onToggle: MouseEventHandler<HTMLButtonElement>
+  onToggle: (id: number) => void
+  id: number
+  color?: 'white' | 'standard'
 }
 
-const BookmarkToggle = ({ isSelected = false, onToggle }: BookmarkToggleProps) => {
+const BookmarkToggle = ({
+  isSelected = false,
+  onToggle,
+  id,
+  color = 'standard'
+}: BookmarkToggleProps) => {
+  const handleClick: MouseEventHandler<HTMLButtonElement> = (event) => {
+    event.preventDefault()
+    onToggle(id)
+  }
+
+  const buttonClass = `${styles.bookmarkButton} ${
+    color === 'white' ? styles['bookmarkButton--white'] : ''
+  }`
+
   return (
-    <button
-      className={styles.bookmarkButton}
-      aria-pressed={isSelected}
-      onClick={onToggle}
-      type="button">
-      <img className={styles.bookmarkButton__icon} src={bookmarkSrc} alt={'Save to favorites'} />
+    <button className={buttonClass} aria-pressed={isSelected} onClick={handleClick} type="button">
+      <img className={styles.bookmarkButton__icon} src={bookmarkSrc} alt="Save to favorites" />
     </button>
   )
 }

@@ -26,7 +26,11 @@ const ForYouArts = () => {
           <h3 className={styles.forYou__heading}>Other works for you</h3>
         </div>
         <div className={styles.forYou__content}>
-          {isLoading ? <Loader /> : <PaintingsList artworks={visibleArts} type="compact" />}
+          {isLoading ? (
+            <Loader text="Selecting even more paintings for you..." />
+          ) : (
+            <PaintingsList artworks={visibleArts} type="compact" />
+          )}
         </div>
       </div>
     </section>

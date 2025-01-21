@@ -51,6 +51,7 @@ const DetailedPainting = ({
           <BookmarkToggle
             isSelected={isMarkedAsFavorite(painting.id)}
             onToggle={toggleFavoriteStatus}
+            id={painting.id}
           />
         </div>
       </div>

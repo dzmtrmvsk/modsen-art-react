@@ -1,17 +1,24 @@
 import styles from './styles.module.scss'
 
-const Loader = () => {
+interface LoaderProps {
+  text?: string
+}
+
+const Loader = ({ text }: LoaderProps) => {
   return (
     <div className={styles.loader}>
-      <svg viewBox="0 0 200 200">
-        <circle cx="100" cy="100" r="50"></circle>
-      </svg>
-      <svg viewBox="0 0 200 200">
-        <circle cx="100" cy="100" r="50"></circle>
-      </svg>
-      <svg viewBox="0 0 200 200">
-        <circle cx="100" cy="100" r="50"></circle>
-      </svg>
+      <div className={styles.loader__circles}>
+        <svg className={styles.loader__circle} viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="50"></circle>
+        </svg>
+        <svg className={styles.loader__circle} viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="50"></circle>
+        </svg>
+        <svg className={styles.loader__circle} viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="50"></circle>
+        </svg>
+      </div>
+      {text && <p className={styles.loader__text}>{text}</p>}
     </div>
   )
 }

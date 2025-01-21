@@ -3,6 +3,9 @@
 .favorites {
     padding: 120px 0;
     font-family: 'Lexed Deca', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &__headingWrapper {
         padding-bottom: 120px;

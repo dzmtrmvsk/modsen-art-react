@@ -116,7 +116,7 @@ const MuseumSearch = () => {
       </form>
       {isLoading ? (
         <div className={styles.museumSearch__loader}>
-          <Loader />
+          <Loader text="Search for results..." />
         </div>
       ) : (
         throttledQuery && (

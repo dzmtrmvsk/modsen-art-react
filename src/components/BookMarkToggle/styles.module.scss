@@ -6,13 +6,14 @@
     width: 60px;
     border-radius: 50%;
     border: none;
-    background-color: #FEF3E8;
+    background-color: #f9f9f9;
     cursor: pointer;
     transition: background-color 0.19s ease;
 
     @media (hover: hover) {
         &:hover {
             background-color: #f3d9bf;
+
             img {
                 transform: scale(1.1);
             }
@@ -27,5 +28,24 @@
         width: 24px;
         height: 24px;
         transition: transform 0.19s linear;
+    }
+
+    &--white {
+        background-color: #ffffff;
+        border: 1px solid #F0F1F1;
+
+        @media (hover: hover) {
+            &:hover {
+                background-color: #ececec;
+
+                img {
+                    transform: scale(1.1);
+                }
+            }
+        }
+
+        &[aria-pressed='true'] {
+            background-color: #d9d9d9;
+        }
     }
 }

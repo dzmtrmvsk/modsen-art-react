@@ -23,7 +23,6 @@ const usePaintings = (
   data: IPaintingListPagination
   isLoading: boolean
   error: Error | null
-  refetch: () => void
 } => {
   const [data, setData] = useState<IPaintingListPagination>({} as IPaintingListPagination)
   const [isLoading, setIsLoading] = useState(false)
@@ -79,7 +78,7 @@ const usePaintings = (
     }
   }, [fetchData])
 
-  return { data, isLoading, error, refetch: fetchData }
+  return { data, isLoading, error }
 }
 
 export { usePaintings }
