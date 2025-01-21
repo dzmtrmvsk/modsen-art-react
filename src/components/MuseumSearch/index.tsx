@@ -13,6 +13,7 @@ import { usePagination } from '@/hooks/usePagination'
 import SortButtons from '@/components/SortButtons'
 import PaintingList from '@/components/PaintingsList/PaintingsList'
 import NoResultsMessage from '@/components/NoResultsMessage/index'
+import { ART_API_IMAGE_PATHS } from '@/constants/apiParams'
 
 const SORT_OPTIONS = {
   NONE: 0,
@@ -37,11 +38,15 @@ const MuseumSearch = () => {
   const searchValue = watch('query')
   const throttledQuery = useDebounceValue(searchValue, 600)
 
-  const { data, isLoading } = usePaintings('search', {
-    query: throttledQuery,
-    page: debauncedSearchPage,
-    limit: 9
-  })
+  const { data, isLoading } = usePaintings(
+    'search',
+    {
+      query: throttledQuery,
+      page: debauncedSearchPage,
+      limit: 9
+    },
+    ART_API_IMAGE_PATHS.LIGHT
+  )
   const arts = useMemo(() => data.artworks || [], [data.artworks])
 
   const pagination = usePagination(1, data.pagination?.totalPages || 1, 6)

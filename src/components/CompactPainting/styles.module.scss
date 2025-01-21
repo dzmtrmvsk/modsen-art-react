@@ -26,6 +26,8 @@
         align-items: center;
         gap: 16px;
         overflow: hidden;
+        min-width: 0;
+        flex-shrink: 1;
     }
 
     &:hover {
@@ -36,24 +38,26 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        width: 80px;
+        height: 80px;
+        flex-shrink: 0;
         overflow: hidden;
-    
+
         img {
-          width: 80px;
-          height: 80px;
-          object-fit: cover; 
-          flex-shrink: 0;
-          flex-grow: 0;
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
         }
-      }
+    }
 
     &__details {
-        align-self: stretch;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         gap: 4px;
         overflow: hidden;
+        flex-grow: 1;
+        min-width: 0;
     }
 
     &__title {
@@ -62,6 +66,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        max-width: 100%;
     }
 
     &__artistName {
@@ -71,23 +76,22 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         color: $color-orange;
+        max-width: 100%;
     }
-
 
     &__galleryStatus {
         font-weight: 700;
-    }
-
-    &__artInfo {
-        display: flex;
-        flex-direction: column;
-        gap: 3px;
+        font-size: 14px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     &__actionsWrapper {
         display: flex;
         align-items: center;
         justify-content: center;
+        flex-shrink: 0;
     }
 }
 
@@ -150,11 +154,6 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-        }
-
-        &__actionsWrapper {
-            flex-shrink: 0;
-            margin-left: 2px;
         }
 
         &__title,

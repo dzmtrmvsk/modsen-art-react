@@ -5,10 +5,11 @@ import { usePaintings } from '@/hooks/usePainting'
 import { useSavedIds } from '@/hooks/useSavedIds'
 import PageTitle from '@/components/PageTitle'
 import { Link } from 'react-router-dom'
+import { ART_API_IMAGE_PATHS } from '@/constants/apiParams'
 
 const FavoriteArts = () => {
   const { savedIds } = useSavedIds()
-  const { data } = usePaintings('list', { ids: savedIds })
+  const { data } = usePaintings('list', { ids: savedIds }, ART_API_IMAGE_PATHS.LIGHT)
   const visibleArts = data?.artworks?.length > 0 ? data.artworks : null
   return (
     <section className={styles.favorites}>

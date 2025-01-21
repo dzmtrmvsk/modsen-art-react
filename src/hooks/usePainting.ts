@@ -9,78 +9,77 @@ import { IPaintingListPagination } from 'src/types/painting'
 /**
  * usePaintings
  * A custom React hook for working with paintings.
- * Always returns an array of paintings.
  *
- * @param mode The mode of the hook: 'single', 'list', 'search'.
+ * @param mode The mode of the hook: 'list', 'search', 'pagination'.
  * @param params The parameters of the request, depending on the selected mode.
- * @returns An object with data (array of paintings), loading state, error, and a function to refetch the request.
+ * @param imageFormat The desired image format for the paintings.
+ * @returns An object with data, loading state, error, and a refetch function.
  */
 const usePaintings = (
   mode: 'list' | 'search' | 'pagination',
-  params: { id?: number[]; ids?: number[]; query?: string; limit?: number; page?: number } = {}
+  params: { id?: number[]; ids?: number[]; query?: string; limit?: number; page?: number } = {},
+  imageFormat: string
 ): {
   data: IPaintingListPagination
   isLoading: boolean
   error: Error | null
+  refetch: () => void
 } => {
   const [data, setData] = useState<IPaintingListPagination>({} as IPaintingListPagination)
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<Error | null>(null)
 
   const stableParams = useMemo(() => params, [JSON.stringify(params)])
 
-  const fetchData = useCallback(() => {
+  const fetchData = useCallback(async () => {
     setIsLoading(true)
     setError(null)
 
-    let fetchPromise: Promise<any>
+    try {
+      let result
+      switch (mode) {
+        case 'list':
+          if (!stableParams.ids?.length) {
+            throw new Error('IDs are required for painting list fetch.')
+          }
+          result = await fetchPaintingsByIds(stableParams.ids, imageFormat)
+          break
 
-    switch (mode) {
-      case 'list':
-        if (!stableParams.ids || stableParams.ids.length === 0) {
-          setIsLoading(false)
-          setError(new Error('IDs are required for painting list fetch.'))
-          return
-        }
-        fetchPromise = fetchPaintingsByIds(stableParams.ids)
-        break
+        case 'search':
+          result = await searchPaintings(
+            stableParams.query || '',
+            stableParams.limit || 10,
+            stableParams.page || 1,
+            imageFormat
+          )
+          break
 
-      case 'search':
-        fetchPromise = searchPaintings(
-          stableParams.query || '',
-          stableParams.limit || 10,
-          stableParams.page || 1
-        )
-        break
+        case 'pagination':
+          result = await paginateFetchPaintings(
+            stableParams.limit || 9,
+            stableParams.page || 1,
+            imageFormat
+          )
+          break
 
-      case 'pagination':
-        fetchPromise = paginateFetchPaintings(stableParams.limit || 9, stableParams.page || 1)
-        break
-
-      default:
-        setIsLoading(false)
-        setError(new Error(`Unsupported mode: ${mode}`))
-        return
+        default:
+          throw new Error(`Unsupported mode: ${mode}`)
+      }
+      setData(result)
+    } catch (err) {
+      setError(err as Error)
+    } finally {
+      setIsLoading(false)
     }
-
-    fetchPromise
-      .then((result) => {
-        setData(result)
-        setIsLoading(false)
-      })
-      .catch((err) => {
-        setError(err)
-        setIsLoading(false)
-      })
-  }, [mode, stableParams])
+  }, [mode, stableParams, imageFormat])
 
   useEffect(() => {
-    if ((mode === 'search' && params.query !== '') || mode === 'list' || mode === 'pagination') {
+    if ((mode === 'search' && stableParams.query) || mode === 'list' || mode === 'pagination') {
       fetchData()
     }
   }, [fetchData])
 
-  return { data, isLoading, error }
+  return { data, isLoading, error, refetch: fetchData }
 }
 
 export { usePaintings }

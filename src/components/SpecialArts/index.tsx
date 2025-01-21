@@ -5,16 +5,21 @@ import { usePagination } from '@/hooks/usePagination'
 import Loader from '@/components/Loader'
 import { useDebounceValue } from '@/hooks/useDebounceValue'
 import { getRandomPage } from '@/utils/pagination'
-import PaintingsList from '../PaintingsList/PaintingsList'
+import PaintingsList from '@/components/PaintingsList/PaintingsList'
+import { ART_API_IMAGE_PATHS } from '@/constants/apiParams'
 
 const SpecialArts = () => {
   const page = useMemo(getRandomPage, [])
   const [searchPage, setSearchPage] = useState<number>(1)
   const debauncedSearchPage = useDebounceValue(searchPage, 400)
-  const { data, isLoading } = usePaintings('pagination', {
-    limit: 3,
-    page: debauncedSearchPage + page
-  })
+  const { data, isLoading } = usePaintings(
+    'pagination',
+    {
+      limit: 3,
+      page: debauncedSearchPage + page
+    },
+    ART_API_IMAGE_PATHS.MAJOR
+  )
   const pagination = usePagination(searchPage, data?.pagination?.totalPages || 1, 4)
 
   const visibleArts = data?.artworks?.length > 0 ? data.artworks : null
