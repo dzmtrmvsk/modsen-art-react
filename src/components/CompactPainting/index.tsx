@@ -72,4 +72,4 @@ const CompactPainting = ({
   )
 }
 
-export { CompactPaintingProps, CompactPainting }
+export { type CompactPaintingProps, CompactPainting }

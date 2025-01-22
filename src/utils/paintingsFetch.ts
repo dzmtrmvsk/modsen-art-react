@@ -2,15 +2,18 @@ import { ART_API_ENDPOINT, ART_API_IMAGE_PATHS } from '@/constants/apiParams'
 import { QUERY_ART_FIELDS, QUERY_ART_TYPE_ID } from '@/constants/paintingQuery'
 import { parsePainting, mapApiPaginationToDetails } from '@/utils/parsers'
 import { IArtworkListResponse, ISearchResults } from 'src/types/apiResponse'
-import { IPaintingList, IPaintingListPagination } from 'src/types/painting'
+import { IPaintingListPagination } from 'src/types/painting'
 import { fetchFromApi } from '@/utils/apiBasic'
 
 const fetchPaintingsByIds = async (
   paintingIds: number[],
   imageFormat: string = ART_API_IMAGE_PATHS.MAJOR
-): Promise<IPaintingList> => {
+): Promise<IPaintingListPagination> => {
   if (!paintingIds.length) {
-    return { artworks: [] }
+    return {
+      artworks: [],
+      pagination: { currentPage: 1, totalPages: 1, totalRecords: 0, pageSize: 0, offset: 0 }
+    }
   }
 
   const data: IArtworkListResponse = await fetchFromApi(`${ART_API_ENDPOINT}/artworks`, {
@@ -19,7 +22,10 @@ const fetchPaintingsByIds = async (
   })
 
   return {
-    artworks: data.data.map((paintingJson) => parsePainting(paintingJson, data.config, imageFormat))
+    artworks: data.data.map((paintingJson) =>
+      parsePainting(paintingJson, data.config, imageFormat)
+    ),
+    pagination: { currentPage: 1, totalPages: 1, totalRecords: 0, pageSize: 0, offset: 0 }
   }
 }
 

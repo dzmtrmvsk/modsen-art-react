@@ -6,11 +6,24 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     "skipLibCheck": true,
-    "isolatedModules": true,
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
+    "isolatedModules": false,
+    "moduleResolution": "node16",
+    "allowImportingTsExtensions": false,
     "moduleDetection": "force",
+    "esModuleInterop": true,
     "noEmit": true,
-    "esModuleInterop": true
+    "baseUrl": "./",
+    "paths": {
+      "@/components/*": ["src/components/*"],
+      "@/constants/*": ["src/constants/*"],
+      "@/contexts/*": ["src/contexts/*"],
+      "@/hooks/*": ["src/hooks/*"],
+      "@/pages/*": ["src/pages/*"],
+      "@/styles/*": ["src/styles/*"],
+      "@/utils/*": ["src/utils/*"],
+      "@/types/*": ["src/types/*"],
+      "@/assets/*": ["src/assets/*"],
+      "@/*": ["src/*"]
+    }
   }
 }

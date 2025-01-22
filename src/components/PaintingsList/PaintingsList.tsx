@@ -1,17 +1,14 @@
 import styles from './styles.module.scss'
 import { IPainting } from 'src/types/painting'
 import PaintingsMiniContainer from '@/components/PaintingsMiniContainer'
-import { Pagination } from '@/components/Pagination'
-import { PaginationState } from '@/hooks/usePagination'
 import PaintingsDetailedContainer from '@/components/PaintingsDetailedContainer'
 
 interface PaintingMiniListProps {
   artworks: IPainting[]
-  pagination?: PaginationState
   type: 'compact' | 'detailed'
 }
 
-const PaintingsList = ({ artworks, pagination, type }: PaintingMiniListProps) => {
+const PaintingsList = ({ artworks, type }: PaintingMiniListProps) => {
   if (artworks?.length === 0) {
     return null
   }
@@ -23,11 +20,6 @@ const PaintingsList = ({ artworks, pagination, type }: PaintingMiniListProps) =>
           <PaintingsMiniContainer paintings={artworks} />
         ) : (
           <PaintingsDetailedContainer paintings={artworks} />
-        )}
-        {pagination?.visiblePages && (
-          <div className={styles.paintingList__pagination}>
-            <Pagination pagination={pagination} />
-          </div>
         )}
       </div>
     </div>
