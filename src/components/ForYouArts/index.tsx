@@ -16,7 +16,7 @@ const ForYouArts = () => {
     },
     ART_API_IMAGE_PATHS.LIGHT
   )
-  const visibleArts = data?.artworks?.length > 0 ? data.artworks : null
+  const visibleArts = data?.artworks?.length > 0 ? data.artworks : []
 
   return (
     <section className={styles.forYou}>

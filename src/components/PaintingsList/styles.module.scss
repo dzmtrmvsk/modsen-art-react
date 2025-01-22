@@ -4,17 +4,8 @@
   &__wrapper {
     display: flex;
     flex-direction: column;
-    gap: 24px;
     align-items: stretch;
     background-color: #fafafa;
-  }
-
-  &__pagination {
-    align-self: flex-end;
-
-    @media (max-width: 1306px) {
-      align-self: center;
-    }
   }
 
   @media (max-width: 872px) {

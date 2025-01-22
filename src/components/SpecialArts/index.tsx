@@ -7,6 +7,7 @@ import { useDebounceValue } from '@/hooks/useDebounceValue'
 import { getRandomPage } from '@/utils/pagination'
 import PaintingsList from '@/components/PaintingsList/PaintingsList'
 import { ART_API_IMAGE_PATHS } from '@/constants/apiParams'
+import { Pagination } from '@/components/Pagination'
 
 const SpecialArts = () => {
   const page = useMemo(getRandomPage, [])
@@ -22,7 +23,7 @@ const SpecialArts = () => {
   )
   const pagination = usePagination(searchPage, data?.pagination?.totalPages || 1, 4)
 
-  const visibleArts = data?.artworks?.length > 0 ? data.artworks : null
+  const visibleArts = data?.artworks?.length > 0 ? data.artworks : []
 
   useEffect(() => {
     setSearchPage(pagination.currentPage)
@@ -39,7 +40,12 @@ const SpecialArts = () => {
           {isLoading ? (
             <Loader text="Looking for the best paintings in the world for you..." />
           ) : (
-            <PaintingsList artworks={visibleArts} pagination={pagination} type="detailed" />
+            <PaintingsList artworks={visibleArts} type="detailed" />
+          )}
+          {visibleArts.length > 0 && (
+            <div className={styles.specialArts__pagination}>
+              <Pagination pagination={pagination} />
+            </div>
           )}
         </div>
       </div>

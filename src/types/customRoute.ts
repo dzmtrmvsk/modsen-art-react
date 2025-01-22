@@ -8,7 +8,7 @@ export interface RouteLink {
 export interface RouteConfig {
   path: string
   element: FC
-  navigation: RouteLink
+  navigation: RouteLink | null
   resolvePath: () => string
   generatePath: (..._args: any[]) => string
 }
