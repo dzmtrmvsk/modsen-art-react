@@ -31,7 +31,10 @@ const DetailedPainting = ({
   }
 
   return (
-    <div className={styles.detailedPainting} onClick={onCardInteraction}>
+    <div
+      className={styles.detailedPainting}
+      onClick={onCardInteraction}
+      data-testid="painting-item">
       <div className={styles.detailedPainting__thumbnailWrapper}>
         <img
           className={styles.detailedPainting__thumbnail}

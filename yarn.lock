@@ -1672,6 +1672,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@testing-library/user-event@npm:^14.6.1":
+  version: 14.6.1
+  resolution: "@testing-library/user-event@npm:14.6.1"
+  peerDependencies:
+    "@testing-library/dom": ">=7.21.4"
+  checksum: 10c0/75fea130a52bf320d35d46ed54f3eec77e71a56911b8b69a3fe29497b0b9947b2dc80d30f04054ad4ce7f577856ae3e5397ea7dff0ef14944d3909784c7a93fe
+  languageName: node
+  linkType: hard
+
 "@tootallnate/once@npm:2":
   version: 2.0.0
   resolution: "@tootallnate/once@npm:2.0.0"
@@ -1949,6 +1958,13 @@ __metadata:
   version: 2.0.3
   resolution: "@types/stack-utils@npm:2.0.3"
   checksum: 10c0/1f4658385ae936330581bcb8aa3a066df03867d90281cdf89cc356d404bd6579be0f11902304e1f775d92df22c6dd761d4451c804b0a4fba973e06211e9bd77c
+  languageName: node
+  linkType: hard
+
+"@types/text-encoding@npm:^0":
+  version: 0.0.40
+  resolution: "@types/text-encoding@npm:0.0.40"
+  checksum: 10c0/ae0a8e6896ae847e0ccf297d623df2a1cdf4180e8f3a3542c56ea56194d49a6d3f18a60170f786a9ba33d2644e7d9caf089ec286fd762765ce4d426f3eac4892
   languageName: node
   linkType: hard
 
@@ -4709,7 +4725,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"inherits@npm:2":
+"inherits@npm:2, inherits@npm:^2.0.3":
   version: 2.0.4
   resolution: "inherits@npm:2.0.4"
   checksum: 10c0/4e531f648b29039fb7426fb94075e6545faa1eb9fe83c29f0b6d9e7263aceb4289d2d4557db0d428188eeb449cc7c5e77b0a0b2c4e248ff2a65933a0dee49ef2
@@ -4744,7 +4760,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-arguments@npm:^1.1.1":
+"is-arguments@npm:^1.0.4, is-arguments@npm:^1.1.1":
   version: 1.2.0
   resolution: "is-arguments@npm:1.2.0"
   dependencies:
@@ -4895,7 +4911,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-generator-function@npm:^1.0.10":
+"is-generator-function@npm:^1.0.10, is-generator-function@npm:^1.0.7":
   version: 1.1.0
   resolution: "is-generator-function@npm:1.1.0"
   dependencies:
@@ -5026,7 +5042,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-typed-array@npm:^1.1.13, is-typed-array@npm:^1.1.14, is-typed-array@npm:^1.1.15":
+"is-typed-array@npm:^1.1.13, is-typed-array@npm:^1.1.14, is-typed-array@npm:^1.1.15, is-typed-array@npm:^1.1.3":
   version: 1.1.15
   resolution: "is-typed-array@npm:1.1.15"
   dependencies:
@@ -6332,6 +6348,7 @@ __metadata:
     "@hookform/resolvers": "npm:^3.10.0"
     "@testing-library/jest-dom": "npm:^6.6.3"
     "@testing-library/react": "npm:^14.0.0"
+    "@testing-library/user-event": "npm:^14.6.1"
     "@types/eslint-plugin-jsx-a11y": "npm:^6"
     "@types/identity-obj-proxy": "npm:^3"
     "@types/jest": "npm:^29.5.14"
@@ -6339,6 +6356,7 @@ __metadata:
     "@types/react": "npm:^18.3.18"
     "@types/react-dom": "npm:^18.3.5"
     "@types/react-router-dom": "npm:^5.3.3"
+    "@types/text-encoding": "npm:^0"
     "@typescript-eslint/eslint-plugin": "npm:^8.20.0"
     "@typescript-eslint/parser": "npm:^8.20.0"
     "@vitejs/plugin-react": "npm:^4.3.4"
@@ -6365,10 +6383,12 @@ __metadata:
     react-router-dom: "npm:^7.1.2"
     sass: "npm:^1.83.4"
     scss: "npm:^0.2.4"
+    text-encoding: "npm:^0.7.0"
     ts-jest: "npm:^29.2.5"
     ts-node: "npm:^10.9.2"
     typescript: "npm:~5.6.2"
     typescript-eslint: "npm:^8.18.2"
+    util: "npm:^0.12.5"
     vite: "npm:^6.0.5"
     vite-tsconfig-paths: "npm:^5.1.4"
     yup: "npm:^1.6.1"
@@ -8001,6 +8021,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"text-encoding@npm:^0.7.0":
+  version: 0.7.0
+  resolution: "text-encoding@npm:0.7.0"
+  checksum: 10c0/6c20f5d19f996501677cc60b79bc4af550f840b426eacc5f67bd2bd5a7a7a058ab58679f851e0afee879aaaaf7fdb95cfe4de35ab29f9b34f9ce2a7b8de9bacb
+  languageName: node
+  linkType: hard
+
 "text-extensions@npm:^2.0.0":
   version: 2.4.0
   resolution: "text-extensions@npm:2.4.0"
@@ -8398,6 +8425,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"util@npm:^0.12.5":
+  version: 0.12.5
+  resolution: "util@npm:0.12.5"
+  dependencies:
+    inherits: "npm:^2.0.3"
+    is-arguments: "npm:^1.0.4"
+    is-generator-function: "npm:^1.0.7"
+    is-typed-array: "npm:^1.1.3"
+    which-typed-array: "npm:^1.1.2"
+  checksum: 10c0/c27054de2cea2229a66c09522d0fa1415fb12d861d08523a8846bf2e4cbf0079d4c3f725f09dcb87493549bcbf05f5798dce1688b53c6c17201a45759e7253f3
+  languageName: node
+  linkType: hard
+
 "v8-compile-cache-lib@npm:^3.0.1":
   version: 3.0.1
   resolution: "v8-compile-cache-lib@npm:3.0.1"
@@ -8581,7 +8621,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"which-typed-array@npm:^1.1.13, which-typed-array@npm:^1.1.16, which-typed-array@npm:^1.1.18":
+"which-typed-array@npm:^1.1.13, which-typed-array@npm:^1.1.16, which-typed-array@npm:^1.1.18, which-typed-array@npm:^1.1.2":
   version: 1.1.18
   resolution: "which-typed-array@npm:1.1.18"
   dependencies:

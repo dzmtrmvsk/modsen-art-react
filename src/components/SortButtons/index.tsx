@@ -24,6 +24,7 @@ const SortButtons = ({ sortField, sortOrder, handleSort }: SortButtonsProps) => 
         {SORT_FIELDS.map((field, index) => (
           <button
             key={field}
+            data-testid="sort-button-title"
             className={`${styles.sortButtons__button} ${
               sortField === field && styles['sortButtons__button--active']
             }`}
