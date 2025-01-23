@@ -9,6 +9,7 @@
 - [Используемые технологии](#Используемые-технологии)
 - [Тестирование](#Тестирование)
 - [Полезные ссылки](#Полезные-ссылки)
+- [ЛИЧНЫЕ УТОЧНЕНИЯ](#ЛИЧНЫЕ-УТОЧНЕНИЯ)
 
 ## Техническое задание
 
@@ -78,3 +79,6 @@
 [Husky](https://dev.to/ivadyhabimana/setup-eslint-prettier-and-husky-in-a-node-project-a-step-by-step-guide-946)
 [GitFlow](https://www.atlassian.com/ru/git/tutorials/comparing-workflows/gitflow-workflow)
 [Commit Convention](https://www.conventionalcommits.org/en/v1.0.0/)
+
+## ЛИЧНЫЕ УТОЧНЕНИЯ
+Так как деплой был произведен на бесплатную платформу Vercel, то вместо кастомного 404 будет отображаться виджет от Vercel. Аналогично с попыткой попасть на страницу отдельной картины через URL - запросится документ с Vercel и будет показана 404 ошибка.
