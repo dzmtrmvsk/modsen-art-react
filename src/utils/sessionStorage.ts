@@ -53,7 +53,10 @@ export const removeSavedArt = (artId: number): void => {
   }
 
   const updatedIds = savedIds.filter((id) => id !== artId)
-  setSessionStorageValue(SAVED_ARTS_KEY, formatIdList(updatedIds))
+
+  if (savedIds.length !== updatedIds.length) {
+    setSessionStorageValue(SAVED_ARTS_KEY, formatIdList(updatedIds))
+  }
 }
 
 export const clearSavedArts = (): void => {

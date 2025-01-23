@@ -37,7 +37,7 @@ const PaintingInfo = ({ artId }: PaintingInfoProps) => {
   }
 
   return (
-    <section className={styles.paintingInfo}>
+    <section className={styles.paintingInfo} data-testid="painting-info-section">
       <div className={styles.paintingInfo__imageWrapper}>
         <img className={styles.paintingInfo__image} src={artwork.imageSource} alt={artwork.title} />
         <div className={styles.paintingInfo__favoriteButton}>

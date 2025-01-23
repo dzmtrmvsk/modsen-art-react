@@ -14,7 +14,7 @@ const PaintingsList = ({ artworks, type }: PaintingMiniListProps) => {
   }
 
   return (
-    <div className={styles.paintingList}>
+    <div className={styles.paintingList} data-testid="paintings-list">
       <div className={styles.paintingList__wrapper}>
         {type === 'compact' ? (
           <PaintingsMiniContainer paintings={artworks} />

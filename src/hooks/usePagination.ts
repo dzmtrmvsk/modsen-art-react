@@ -15,15 +15,6 @@ export interface PaginationState {
   goToLast: () => void
 }
 
-/**
- * usePaginationHook
- * A custom hook to manage pagination logic.
- *
- * @param initialPage The starting page number.
- * @param totalPageCount The total number of pages available.
- * @param maxVisiblePages The maximum number of pages to display in the range.
- * @returns An object containing pagination details and actions.
- */
 export function usePagination(
   initialPage: number,
   totalPageCount: number,

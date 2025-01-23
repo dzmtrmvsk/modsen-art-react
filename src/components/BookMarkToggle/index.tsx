@@ -3,7 +3,7 @@ import bookmarkSrc from '@/assets/icons/bookmark.svg'
 
 import styles from './styles.module.scss'
 
-interface BookmarkToggleProps {
+export interface BookmarkToggleProps {
   isSelected?: boolean
   onToggle: (id: number) => void
   id: number

@@ -7,6 +7,7 @@ const SearchLine = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputEle
     return (
       <div className={styles.searchLine}>
         <input
+          data-testid="search-input"
           ref={ref}
           className={styles.searchLine__input}
           placeholder="Search art, artist, work..."
