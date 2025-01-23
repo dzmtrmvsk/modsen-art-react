@@ -1,21 +1,20 @@
-import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import * as path from 'path'
+import path from 'path'
+import { defineConfig } from 'vite'
+import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), tsconfigPaths()],
   resolve: {
     alias: {
-      '@/components': path.resolve(__dirname, 'src/components'),
-      '@/constants': path.resolve(__dirname, 'src/constants'),
-      '@/contexts': path.resolve(__dirname, 'src/contexts'),
-      '@/hooks': path.resolve(__dirname, 'src/hooks'),
-      '@/pages': path.resolve(__dirname, 'src/pages'),
-      '@/styles': path.resolve(__dirname, 'src/styles'),
-      '@/utils': path.resolve(__dirname, 'src/utils'),
-      '@/types': path.resolve(__dirname, 'src/types'),
-      '@/assets': path.resolve(__dirname, 'src/assets'),
-      '@/routes': path.resolve(__dirname, 'src/routes')
+      '@': path.resolve(__dirname, './src/'),
+      '@constants': path.resolve(__dirname, './src/constants/'),
+      '@types': path.resolve(__dirname, './src/types'),
+      '@components': path.resolve(__dirname, './src/components/'),
+      '@pages': path.resolve(__dirname, './src/pages/'),
+      '@contexts': path.resolve(__dirname, './src/contexts/'),
+      '@hooks': path.resolve(__dirname, './src/hooks/'),
+      '@utils': path.resolve(__dirname, './src/utils/')
     }
   }
 })

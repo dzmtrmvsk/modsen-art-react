@@ -5,7 +5,11 @@ interface ContainerProps extends React.PropsWithChildren {
 }
 
 const Container = ({ className, children }: ContainerProps) => {
-  return <div className={`${styles.container} ${className}`}>{children}</div>
+  return (
+    <div role="generic" className={`${styles.container} ${className}`}>
+      {children}
+    </div>
+  )
 }
 
 export default Container

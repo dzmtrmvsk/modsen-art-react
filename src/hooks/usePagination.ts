@@ -15,20 +15,14 @@ export interface PaginationState {
   goToLast: () => void
 }
 
-/**
- * usePaginationHook
- * A custom hook to manage pagination logic.
- *
- * @param initialPage The starting page number.
- * @param totalPageCount The total number of pages available.
- * @param maxVisiblePages The maximum number of pages to display in the range.
- * @returns An object containing pagination details and actions.
- */
 export function usePagination(
   initialPage: number,
   totalPageCount: number,
   maxVisiblePages: number
-): PaginationState {
+): PaginationState & {
+  setVisiblePagesManually: (pages: number[]) => void
+  setCurrentPageManually: (page: number) => void
+} {
   const [currentPage, setCurrentPage] = useState<number>(initialPage)
   const [visiblePages, setVisiblePages] = useState<number[]>([])
 
@@ -59,6 +53,19 @@ export function usePagination(
     setCurrentPage(totalPageCount)
   }, [totalPageCount])
 
+  const setVisiblePagesManually = useCallback((pages: number[]) => {
+    setVisiblePages(pages)
+  }, [])
+
+  const setCurrentPageManually = useCallback(
+    (page: number) => {
+      if (page >= 1 && page <= totalPageCount) {
+        setCurrentPage(page)
+      }
+    },
+    [totalPageCount]
+  )
+
   useEffect(() => {
     try {
       const updatedPages = createPageRange(1, totalPageCount, currentPage, maxVisiblePages)
@@ -79,6 +86,8 @@ export function usePagination(
     nextPage,
     previousPage,
     goToFirst,
-    goToLast
+    goToLast,
+    setVisiblePagesManually,
+    setCurrentPageManually
   }
 }

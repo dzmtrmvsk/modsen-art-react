@@ -1,9 +1,9 @@
 @import '/src/styles/colors.scss';
 
 .museumSearch {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 32px;
 
   &__loader {
     display: flex;
@@ -33,7 +33,37 @@
     color: #F17900;
   }
 
+  &__content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    gap: 24px;
+    box-sizing: border-box;
+  }
+
+  &__searchLineWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  &__noResults {
+    padding-top: 24px;
+  }
+
+  &__errorController {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 500;
+    font-family: 'Lexend Deca', sans-serif;
+    color: $color-primary;
+  }
+
   &__form {
+    padding-top: 72px;
     display: flex;
     justify-content: center;
 
@@ -41,7 +71,7 @@
       width: 760px;
     }
 
-    @media screen and (max-width: 650px) {
+    @media (max-width: 780px) {
       div {
         width: 100%;
         padding: 0 16px;
@@ -50,16 +80,25 @@
   }
 
   &__resultWrapper {
+    padding-top: 32px;
     display: flex;
+    gap: 24px;
     flex-direction: column;
-    gap: 38px;
     align-items: center;
   }
 
-  @media screen and (max-width: 300px) {
+  @media (max-width: 300px) {
     &__title {
       font-size: 42px;
     }
 
+  }
+
+  &__pagination {
+    align-self: flex-end;
+
+    @media (max-width: 1306px) {
+      align-self: center;
+    }
   }
 }

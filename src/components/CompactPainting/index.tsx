@@ -43,7 +43,7 @@ const CompactPainting = ({
   /* eslint-disable jsx-a11y/no-static-element-interactions */
   /* eslint-disable jsx-a11y/click-events-have-key-events */
   return (
-    <div className={styles.paintingCard}>
+    <div className={styles.paintingCard} data-testid="painting-item">
       <div className={styles.paintingCard__wrapper} onClick={handleCardInteraction}>
         <div className={styles.paintingCard__infoWrapper}>
           <div className={styles.paintingCard__imageWrapper}>
@@ -72,4 +72,4 @@ const CompactPainting = ({
   )
 }
 
-export { CompactPaintingProps, CompactPainting }
+export { type CompactPaintingProps, CompactPainting }

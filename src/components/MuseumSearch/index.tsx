@@ -14,6 +14,7 @@ import SortButtons from '@/components/SortButtons'
 import PaintingList from '@/components/PaintingsList/PaintingsList'
 import NoResultsMessage from '@/components/NoResultsMessage/index'
 import { ART_API_IMAGE_PATHS } from '@/constants/apiParams'
+import { Pagination } from '@/components/Pagination'
 
 const SORT_OPTIONS = {
   NONE: 0,
@@ -22,82 +23,106 @@ const SORT_OPTIONS = {
 } as const
 
 const schema = yup.object({
-  query: yup.string().max(100, 'Search query is too long.').required()
+  query: yup
+    .string()
+    .min(2, 'Minimum 2 characters required')
+    .max(90, 'Maximum length is 90 characters')
+    .matches(
+      /^[a-zA-Z0-9\s'-]*$/,
+      'Only letters, numbers, spaces, hyphens and apostrophes are allowed'
+    )
 })
 
 type FormData = yup.InferType<typeof schema>
 
 const MuseumSearch = () => {
-  const { handleSubmit, control, watch } = useForm<FormData>({
+  const {
+    handleSubmit,
+    control,
+    watch,
+    formState: { errors }
+  } = useForm<FormData>({
     defaultValues: { query: '' },
-    resolver: yupResolver(schema)
+    resolver: yupResolver(schema),
+    mode: 'onChange',
+    reValidateMode: 'onChange'
   })
+
   const [searchPage, setSearchPage] = useState<number>(1)
-  const debauncedSearchPage = useDebounceValue(searchPage, 500)
+  const [sortedArtworks, setSortedArtworks] = useState<IPainting[]>([])
+  const debouncedSearchPage = useDebounceValue(searchPage, 500)
 
   const searchValue = watch('query')
-  const throttledQuery = useDebounceValue(searchValue, 600)
+  const throttledQuery = useDebounceValue(searchValue, 600) || ''
+  const isQueryValid = throttledQuery.length >= 2 && !errors.query
 
   const { data, isLoading } = usePaintings(
     'search',
     {
-      query: throttledQuery,
-      page: debauncedSearchPage,
+      query: isQueryValid ? throttledQuery : '',
+      page: debouncedSearchPage,
       limit: 9
     },
     ART_API_IMAGE_PATHS.LIGHT
   )
-  const arts = useMemo(() => data.artworks || [], [data.artworks])
 
-  const pagination = usePagination(1, data.pagination?.totalPages || 1, 6)
+  const arts = useMemo(() => data?.artworks || [], [data?.artworks])
+  const pagination = usePagination(1, data?.pagination?.totalPages || 1, 6)
 
   useEffect(() => {
     setSearchPage(pagination.currentPage)
-  }, [pagination])
+  }, [pagination.currentPage])
 
   const [sortField, setSortField] = useState<keyof IPainting | null>(null)
   const [sortOrder, setSortOrder] = useState<number>(SORT_OPTIONS.NONE)
 
-  const sortedArtworks = useMemo(() => {
-    if (!sortField) {
-      return arts
+  useEffect(() => {
+    if (sortField) {
+      const sorted = [...arts].sort((a, b) => {
+        const valueA = String(a[sortField] || '').toLowerCase()
+        const valueB = String(b[sortField] || '').toLowerCase()
+        return sortOrder === SORT_OPTIONS.ASC
+          ? valueA.localeCompare(valueB)
+          : valueB.localeCompare(valueA)
+      })
+      setSortedArtworks(sorted)
+    } else {
+      setSortedArtworks(arts)
     }
-
-    return [...arts].sort((a, b) => {
-      const valueA = String(a[sortField] || '').toLowerCase()
-      const valueB = String(b[sortField] || '').toLowerCase()
-
-      if (sortOrder === SORT_OPTIONS.ASC) {
-        return valueA.localeCompare(valueB)
-      } else if (sortOrder === SORT_OPTIONS.DESC) {
-        return valueB.localeCompare(valueA)
-      }
-
-      return 0
-    })
   }, [arts, sortField, sortOrder])
 
+  useEffect(() => {
+    if (!isQueryValid) {
+      return
+    }
+
+    const totalPages = Math.ceil(arts.length / 9)
+    const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1)
+    pagination.setVisiblePagesManually(pageNumbers)
+    pagination.setCurrentPageManually(1)
+    setSortedArtworks(arts)
+  }, [throttledQuery])
+
+  useEffect(() => {
+    if (!searchValue) {
+      setSortedArtworks([])
+    }
+  }, [searchValue])
+
   const handleSort = (field: keyof IPainting) => {
-    setSortField((prevField) => {
-      if (prevField === field) {
-        setSortOrder((prevOrder) => {
-          if (prevOrder === SORT_OPTIONS.ASC) {
-            return SORT_OPTIONS.DESC
-          } else if (prevOrder === SORT_OPTIONS.DESC) {
-            return SORT_OPTIONS.NONE
-          } else {
-            return SORT_OPTIONS.ASC
-          }
-        })
-        return prevField
-      } else {
-        setSortOrder(SORT_OPTIONS.ASC)
-        return field
+    setSortField((prev) => (prev === field ? prev : field))
+    setSortOrder((prev) => {
+      if (prev === SORT_OPTIONS.ASC) {
+        return SORT_OPTIONS.DESC
       }
+      if (prev === SORT_OPTIONS.DESC) {
+        return SORT_OPTIONS.NONE
+      }
+      return SORT_OPTIONS.ASC
     })
   }
 
-  const onSearch = handleSubmit(() => {})
+  const onSearch = handleSubmit((data) => data)
 
   return (
     <section className={styles.museumSearch}>
@@ -111,27 +136,49 @@ const MuseumSearch = () => {
         <Controller
           name="query"
           control={control}
-          render={({ field }) => <SearchLine {...field} />}
+          render={({ field, fieldState: { error } }) => (
+            <div className={styles.museumSearch__searchLineWrapper}>
+              <SearchLine {...field} />
+              {error && searchValue && (
+                <span className={styles.museumSearch__errorController}>{error.message}</span>
+              )}
+            </div>
+          )}
         />
       </form>
-      {isLoading ? (
-        <div className={styles.museumSearch__loader}>
-          <Loader text="Search for results..." />
-        </div>
-      ) : (
-        throttledQuery && (
-          <>
-            {sortedArtworks.length !== 0 ? (
-              <div className={styles.museumSearch__resultWrapper}>
-                <SortButtons sortField={sortField} sortOrder={sortOrder} handleSort={handleSort} />
-                <PaintingList artworks={sortedArtworks} pagination={pagination} type="compact" />
-              </div>
-            ) : (
-              <NoResultsMessage query={throttledQuery} />
-            )}
-          </>
-        )
-      )}
+      <div className={styles.museumSearch__content}>
+        {isLoading ? (
+          <div className={styles.museumSearch__loader}>
+            <Loader text="Search for results..." />
+          </div>
+        ) : (
+          isQueryValid && (
+            <>
+              {sortedArtworks.length !== 0 ? (
+                <div className={styles.museumSearch__resultWrapper}>
+                  <SortButtons
+                    sortField={sortField}
+                    sortOrder={sortOrder}
+                    handleSort={handleSort}
+                  />
+                  <PaintingList artworks={sortedArtworks} type="compact" />
+                </div>
+              ) : (
+                searchValue === throttledQuery && (
+                  <div className={styles.museumSearch__noResults}>
+                    <NoResultsMessage query={throttledQuery} />
+                  </div>
+                )
+              )}
+            </>
+          )
+        )}
+        {sortedArtworks.length > 0 && isQueryValid && (
+          <div className={styles.museumSearch__pagination}>
+            <Pagination pagination={pagination} />
+          </div>
+        )}
+      </div>
     </section>
   )
 }

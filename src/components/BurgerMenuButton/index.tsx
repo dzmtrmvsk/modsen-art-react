@@ -11,9 +11,9 @@ const BurgerMenuButton = () => {
       data-open={isMenuOpened}
       onClick={toggleMenu}
       aria-label={isMenuOpened ? 'Close menu' : 'Open menu'}>
-      <span className={styles.bar} />
-      <span className={styles.bar} />
-      <span className={styles.bar} />
+      <span className={styles.bar} role="presentation" />
+      <span className={styles.bar} role="presentation" />
+      <span className={styles.bar} role="presentation" />
     </button>
   )
 }
